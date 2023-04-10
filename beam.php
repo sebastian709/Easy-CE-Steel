@@ -21,10 +21,23 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
     $result = mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($connection));
 
     while ($row = mysqli_fetch_assoc($result)) {
-      $emparray[] = $row;
+      $Sx[] = $row;
     }
 
-    echo json_encode($emparray);
+    echo json_encode($Sx);
+    exit;
+  } else if ($locator == "manualsearchBeam") {
+    $Medi = $_POST['data'];
+
+    $sql = "SELECT * FROM `beam_aisc` WHERE id = " . $Medi;
+
+
+    $result = mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($connection));
+
+    while ($row = mysqli_fetch_assoc($result)) {
+      $Edi[] = $row;
+    }
+    echo json_encode($Edi);
     exit;
   }
 }
@@ -45,9 +58,11 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png" />
   <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet" />
   <link href="dist/css/style.min.css" rel="stylesheet" />
+  
 </head>
 
 <body>
+  <script src="https://kit.fontawesome.com/4dde1986c6.js" crossorigin="anonymous"></script>
   <div class="preloader">
     <div class="lds-ripple">
       <div class="lds-pos"></div>
@@ -74,41 +89,6 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
             <li class="nav-item d-none d-lg-block">
               <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
                 data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
-            </li>
-          </ul>
-          <!-- ============================================================== -->
-          <!-- Right side toggle and nav items -->
-          <!-- ============================================================== -->
-          <ul class="navbar-nav float-end">
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
-            <li class="nav-item dropdown">
-              <a class="
-                    nav-link
-                    dropdown-toggle
-                    text-muted
-                    waves-effect waves-dark
-                    pro-pic
-                  " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="assets/images/icon/gear.png" alt="user" class="rounded-circle" width="31" />
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
-                <!-- <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-account me-1 ms-1"></i> My
-                  Profile</a>
-                <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-wallet me-1 ms-1"></i> My
-                  Balance</a>
-                <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-email me-1 ms-1"></i> Inbox</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-settings me-1 ms-1"></i> Account
-                  Setting</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off me-1 ms-1"></i> Logout</a>
-                <div class="dropdown-divider"></div>
-                <div class="ps-4 p-10">
-                  <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded text-white">View Profile</a>
-                </div> -->
-              </ul>
             </li>
           </ul>
         </div>
@@ -160,12 +140,16 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               <div class="col-lg-6">
                 <div class="row">
                   <div class="col-lg-12">
-                    <h3 class="mt-3 ps-4 mt-3 mb-3">Simply Supported</h3>
+                    <h3 class="mt-3 mt-3 mb-3 d-inline">Simply Supported</h3>
+                    <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fas fa-tools text-right"></i>
+                      </button>
                     <!-- <button type="button" id="LocalStorage">Test local storage</button> -->
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-10 form-group ps-lg-5">
+                  <div class="col-12 form-group">
                     <label for="">Dead Load:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="BDL">
@@ -174,7 +158,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-10 form-group ps-lg-5">
+                  <div class="col-12 form-group">
                     <label for="">Live Load:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="BLL">
@@ -183,7 +167,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-10 form-group ps-lg-5">
+                  <div class="col-12 form-group">
                     <label for="">Length:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="BLength">
@@ -192,7 +176,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-10 form-group ps-lg-5">
+                  <div class="col-12 form-group">
                     <label for="">Fy:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="BFy">
@@ -201,7 +185,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-10 form-group ps-lg-5">
+                  <div class="col-12 form-group">
                     <label for="">Final result</label>
                     <div class="input-group mb-3">
                       <select name="" id="" class="form-control">
@@ -231,7 +215,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     <div class="row">
                       <!-- Visuals Tab -->
                       <div class="col-12" id="visuals">
-                        Comming Soon!
+                        <img src="assets/images/beamphoto.png" width="100%" alt="">
                       </div>
                       <!-- Other Results Tab -->
                       <div class="col-12 d-none" id="otherResults">
@@ -311,7 +295,14 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                 <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
                                   data-bs-parent="#accordionExample">
                                   <div class="accordion-body">
-                                    <div class="row">
+                                    <div class="row" id="suggestions_trial">
+                                      <div class="col-12">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Suggestions</h5>
+                                          </div>
+                                        </div>
+                                      </div>
                                       <!-- Check 1 -->
                                       <div class="col">
                                         <div class="row">
@@ -329,17 +320,25 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">D</label>
+                                            <label for="">W</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Bd1">
+                                              <input type="text" class="form-control" readonly id="Bw1">
                                             </div>
                                           </div>
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">tw</label>
+                                            <label for="">A</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Btw1">
+                                              <input type="text" class="form-control" readonly id="Ba1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">D</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bd1">
                                             </div>
                                           </div>
                                         </div>
@@ -361,9 +360,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">Sx</label>
+                                            <label for="">kdes</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="BTsx1">
+                                              <input type="text" class="form-control" readonly id="Bkdes1">
                                             </div>
                                           </div>
                                         </div>
@@ -377,6 +376,46 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
+                                            <label for="">ry</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bry1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">rts</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Brts1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">ho</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bho1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">tw</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Btw1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">ix</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bix1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
                                             <label for="">Zx</label>
                                             <div class="input-group mb-3">
                                               <input type="text" class="form-control" readonly id="Bzx1">
@@ -385,9 +424,41 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">ry</label>
+                                            <label for="">Sx</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Bry1">
+                                              <input type="text" class="form-control" readonly id="BTsx1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">rx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Brx1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Iy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Biy1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">zy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bzy1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">sy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bsy1">
                                             </div>
                                           </div>
                                         </div>
@@ -401,9 +472,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">Iy</label>
+                                            <label for="">cw</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Biy1">
+                                              <input type="text" class="form-control" readonly id="Bcw1">
                                             </div>
                                           </div>
                                         </div>
@@ -425,17 +496,25 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">D</label>
+                                            <label for="">W</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Bd2">
+                                              <input type="text" class="form-control" readonly id="Bw2">
                                             </div>
                                           </div>
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">tw</label>
+                                            <label for="">A</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Btw2">
+                                              <input type="text" class="form-control" readonly id="Ba2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">D</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bd2">
                                             </div>
                                           </div>
                                         </div>
@@ -457,9 +536,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">Sx</label>
+                                            <label for="">kdes</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="BTsx2">
+                                              <input type="text" class="form-control" readonly id="Bkdes2">
                                             </div>
                                           </div>
                                         </div>
@@ -473,6 +552,46 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
+                                            <label for="">ry</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bry2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">rts</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Brts2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">ho</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bho2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">tw</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Btw2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">ix</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bix2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
                                             <label for="">Zx</label>
                                             <div class="input-group mb-3">
                                               <input type="text" class="form-control" readonly id="Bzx2">
@@ -481,9 +600,41 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">ry</label>
+                                            <label for="">Sx</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Bry2">
+                                              <input type="text" class="form-control" readonly id="BTsx2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">rx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Brx2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Iy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Biy2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">zy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bzy2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">sy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bsy2">
                                             </div>
                                           </div>
                                         </div>
@@ -497,9 +648,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">Iy</label>
+                                            <label for="">cw</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Biy2">
+                                              <input type="text" class="form-control" readonly id="Bcw2">
                                             </div>
                                           </div>
                                         </div>
@@ -521,17 +672,25 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">D</label>
+                                            <label for="">W</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Bd3">
+                                              <input type="text" class="form-control" readonly id="Bw3">
                                             </div>
                                           </div>
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">tw</label>
+                                            <label for="">A</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Btw3">
+                                              <input type="text" class="form-control" readonly id="Ba3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">D</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bd3">
                                             </div>
                                           </div>
                                         </div>
@@ -553,9 +712,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">Sx</label>
+                                            <label for="">kdes</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="BTsx3">
+                                              <input type="text" class="form-control" readonly id="Bkdes3">
                                             </div>
                                           </div>
                                         </div>
@@ -569,6 +728,46 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
+                                            <label for="">ry</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bry3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">rts</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Brts3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">ho</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bho3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">tw</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Btw3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">ix</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bix3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
                                             <label for="">Zx</label>
                                             <div class="input-group mb-3">
                                               <input type="text" class="form-control" readonly id="Bzx3">
@@ -577,9 +776,41 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">ry</label>
+                                            <label for="">Sx</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Bry3">
+                                              <input type="text" class="form-control" readonly id="BTsx3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">rx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Brx3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Iy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Biy3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">zy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bzy3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">sy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bsy3">
                                             </div>
                                           </div>
                                         </div>
@@ -593,9 +824,183 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
+                                            <label for="">cw</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bcw3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row" id="manual_trial">
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Manual Selection</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col">
+                                            <h5>Trial D</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">W</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bw4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">A</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Ba4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">D</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bd4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Bf</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bbf4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">tf</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Btf4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">kdes</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bkdes4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">k1</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bk14">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">ry</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bry4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">rts</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Brts4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">ho</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bho4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">tw</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Btw4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">ix</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bix4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Zx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bzx4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Sx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="BTsx4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">rx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Brx4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
                                             <label for="">Iy</label>
                                             <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="Biy3">
+                                              <input type="text" class="form-control" readonly id="Biy4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">zy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bzy4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">sy</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bsy4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">J</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bj4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">cw</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Bcw4">
                                             </div>
                                           </div>
                                         </div>
@@ -673,8 +1078,8 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                 <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
                                   data-bs-parent="#accordionExample">
                                   <div class="accordion-body">
-                                    <div class="row">
-                                      <div class="col">
+                                    <div class="row" id="suggestions_trial2">
+                                      <div class="col-md-4">
                                         <div class="row">
                                           <div class="col">
                                             <h5>Trial Section A</h5>
@@ -745,7 +1150,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="col">
+                                      <div class="col-md-4">
                                         <div class="row">
                                           <div class="col">
                                             <h5>Trial Section B</h5>
@@ -816,7 +1221,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="col">
+                                      <div class="col-md-4">
                                         <div class="row">
                                           <div class="col">
                                             <h5>Trial Section C</h5>
@@ -888,6 +1293,84 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                       </div>
                                     </div>
+                                    <div class="row" id="manual_trial2">
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Manual Selection</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col">
+                                            <h5>Trial Section D</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">@Flange</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtFlange4">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtFlangeComp4">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtFlangeAns4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">@Web</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtWeb4">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtWebComp4">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtWebAns4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">@Yielding</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtYielding4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">@Check Resisting Moment</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtResisting4">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtResistingComp4">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtResistingAns4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">@Bending Moment Capacity</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtBending4">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtBendingComp4">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="AtBendingAns4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -908,6 +1391,104 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
             © 2023 — <b>Easy CE-Steel</b>
           </footer>
         </div>
+        <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Simply Supported Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-12 form-group">
+                        <label for="">Fy Option:</label>
+                        <div class="input-group mb-3">
+                          <button type="button" class="btn form-control" id="manual">Manual Typing</button>
+                          <button type="button" class="btn form-control" id="selections">Select ASTM</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" id="ASTM-Column">
+                      <div class="col-12 form-group">
+                        <label for="">ASTM Designation:</label>
+                        <div class="input-group mb-3">
+                          <!-- <input type="number" class="form-control" id="BFy"> -->
+                          <select name="" id="select-designation" class="form-control" disabled>
+                            <option value="0" selected>Select Designation ...</option>
+                            <?php
+                            $sql1 = "SELECT `astm_name`, `ksi` FROM `astm`";
+                            $result = mysqli_query($conn, $sql1);
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                              $astm[] = $row;
+                            }
+
+                            foreach ($astm as $value) {
+                              echo "<option value='" . $value['ksi'] . "'>" . $value['astm_name'] . " - " . $value['ksi'] . "</option>";
+                            }
+                            ?>
+                          </select>
+                          <span class="input-group-text">Kn/m</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 form-group">
+                        <label for="">Case:</label>
+                        <div class="input-group mb-3">
+                          <button type="button" class="btn form-control" id="continous">Continous</button>
+                          <button type="button" class="btn form-control" id="unbraced">Unbraced</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" id="Lb-Column">
+                      <div class="col-12 form-group">
+                        <label for="">Lb:</label>
+                        <div class="input-group mb-3">
+                          <input type="number" class="form-control" id="unLength">
+                          <span class="input-group-text">Kn/m</span>
+                        </div>
+                        <label for="" class="text-info">Note: Lb must be less than or equal to length you input above.</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 form-group">
+                        <label for="">Final result options</label>
+                        <div class="input-group mb-3">
+                          <button type="button" class="btn form-control" id="suggestions-tab">Suggestions</button>
+                          <button type="button" class="btn form-control" id="manual-tab">Manually Selection</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" id="EDI-Column">
+                      <div class="col-12 form-group">
+                        <label for="">EDI (Click to Select EDI)</label>
+                        <select name="" id="EDISelect" class="form-control">
+                          <option value="0" selected>Select EDI ...</option>
+                          <?php
+                            $sql2 = "SELECT *	FROM `beam_aisc` WHERE EDI_Std_Nomenclature IS NOT NULL AND ID IS NOT NULL ORDER BY ID;";
+                            $result = mysqli_query($conn, $sql2);
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                              $mann[] = $row;
+                            }
+
+                            foreach ($mann as $value) {
+                              echo "<option value='" . $value['ID'] . "'>" . $value['EDI_Std_Nomenclature'] . "</option>";
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info">Save changes</button>
+                  </div> -->
+                </div>
+              </div>
+            </div>
         <input type="hidden" id="ind">
       </div>
       <script src="assets/libs/jquery/dist/jquery.min.js"></script>
@@ -927,20 +1508,107 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
       <script src="dist/js/pages/chart/chart-page-init.js"></script>
 
       <script>
-        // button
+        //Default value
+        $('#manual').addClass('btn-info');
+        $('#selections').addClass('btn-secondary');
+        $('#select-designation').prop('disabled', true);
+        $('#manual_trial').hide();
+        $('#manual_trial2').hide();
+        $('#unLength').prop('disabled', true);
+        $('#continous').addClass('btn-info');
+        $('#unbraced').addClass('btn-secondary');
+        $('#suggestions-tab').addClass('btn-info');
+        $('#manual-tab').addClass('btn-secondary');
+        $('#EDISelect').prop('disabled', true);
+        $('#ASTM-Column').hide();
+        $('#Lb-Column').hide();
+        $('#EDI-Column').hide();
 
-        // bvisuals
-        // bother
 
-        // content
+        // manual and select option in FY
+        $('#manual, #selections').on('click', function () {
+          let active = this.id;
 
-        // visuals
-        // otherResults
+          if (active == 'manual') {
+            $('#manual').removeClass('btn-secondary').addClass('btn-info');
+            $('#selections').removeClass('btn-info').addClass('btn-secondary');
+            $('#select-designation').prop('disabled', true);
+            $('#BFy').prop('disabled', false);
+            $('#select-designation option[value="0"]').prop('selected', true);
+            $('#BFy').val('');
+            $('#ASTM-Column').hide();
+          } else {
+            $('#manual').removeClass('btn-info').addClass('btn-secondary');
+            $('#selections').removeClass('btn-secondary').addClass('btn-info');
+            $('#select-designation').prop('disabled', false);
+            $('#BFy').prop('disabled', true);
+            $('#select-designation option[value="0"]').prop('selected', true);
+            $('#BFy').val('');
+            $('#ASTM-Column').show();
+          }
 
+        });
+
+        // selecting ASTM
+        $('#select-designation').on('change', function () {
+          let ksi = $('#select-designation').val();
+          ksi = ksi * 6.895;
+          $('#BFy').val(ksi.toFixed(2));
+        });
+
+        // Case Button for unbraced and continous
+        $('#continous, #unbraced').on('click', function () {
+          let cases = this.id;
+
+          if (cases == 'continous'){
+            $('#unLength').prop('disabled', true);
+            $('#continous').removeClass('btn-secondary').addClass('btn-info');
+            $('#unbraced').removeClass('btn-info').addClass('btn-secondary');
+            $('#Lb-Column').hide();
+
+            
+          } else {
+            $('#unLength').prop('disabled', false);
+            $('#continous').removeClass('btn-info').addClass('btn-secondary');
+            $('#unbraced').removeClass('btn-secondary').addClass('btn-info');
+            $('#Lb-Column').show();
+
+          }
+
+        });
+
+        // Trial manual and suggestions tab event
+        $('#suggestions-tab, #manual-tab').on('click', function () {
+          let Tab = this.id;
+
+          if (Tab == 'suggestions-tab') {
+            $('#suggestions-tab').removeClass('btn-secondary').addClass('btn-info');
+            $('#manual-tab').removeClass('btn-info').addClass('btn-secondary');
+            $('#suggestions_trial').show();
+            $('#manual_trial').hide();
+            $('#suggestions_trial2').show();
+            $('#manual_trial2').hide();
+            $('#EDISelect').prop('disabled', true);
+            $('#EDI-Column').hide();
+            $('#EDISelect option[value="0"]').prop('selected', true);
+          } else {
+            $('#suggestions-tab').removeClass('btn-info').addClass('btn-secondary');
+            $('#manual-tab').removeClass('btn-secondary').addClass('btn-info');
+            $('#suggestions_trial').hide();
+            $('#manual_trial').show();
+            $('#suggestions_trial2').hide();
+            $('#manual_trial2').show();
+            $('#EDISelect').prop('disabled', false);
+            $('#EDI-Column').show();
+            $('#EDISelect option[value="0"]').prop('selected', true);
+          }
+        });
+
+        // Main Tabs
         $('#bvisuals, #bother').on('click', function () {
           let Tab = this.id
 
-          if (Tab == null || Tab =='bvisuals') {
+          if (Tab == null || Tab == 'bvisuals') {
             $('#bvisuals').addClass('active');
             $('#bother').removeClass('active');
 
@@ -955,6 +1623,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
           }
         });
 
+        
+
+        // Getting SX Events
         var BSx;
         $('#BDL, #BLL, #BLength, #BFy').on('keyup', function () {
           BSx();
@@ -1024,6 +1695,18 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 $('#Bry' + (i + 1)).val(result[i]["ry"]);
                 $('#Bj' + (i + 1)).val(result[i]["j"]);
                 $('#Biy' + (i + 1)).val(result[i]["iy"]);
+
+                  // additionals
+                $('#Bw' + (i + 1)).val(result[i]["w"]);
+                $('#Ba' + (i + 1)).val(result[i]["A"]);
+                $('#Bkdes' + (i + 1)).val(result[i]["kdes"]);
+                $('#Brts' + (i + 1)).val(result[i]["rts"]);
+                $('#Bho' + (i + 1)).val(result[i]["ho"]);
+                $('#Bix' + (i + 1)).val(result[i]["ix"]);
+                $('#Brx' + (i + 1)).val(result[i]["rx"]);
+                $('#Bzy' + (i + 1)).val(result[i]["zy"]);
+                $('#Bsy' + (i + 1)).val(result[i]["sy"]);
+                $('#Bcw' + (i + 1)).val(result[i]["cw"]);
               }
 
               var BFy = $('#BFy').val();
@@ -1042,7 +1725,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               var LambWebR1 = 5.70 * (Math.sqrt(200000 / BFy));
               $('#LambWebR1').val(LambWebR1.toFixed(3));
 
-              // Analysis of Contact
+              // Analysis of Compact
               var Tbf = [];
               var Ttf = [];
               var Ttw = [];
@@ -1072,7 +1755,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 $('#AtFlange' + (i + 1)).val(atFlange[i].toFixed(3));
                 $('#AtFlangeComp' + (i + 1)).val(atFlange[i].toFixed(3) + " < " + LambFlangeP1.toFixed(3));
 
-                if (atFlange[i].toFixed(3) < LambFlangeP1.toFixed(3)) {
+                if (parseFloat(atFlange[i].toFixed(3)) < parseFloat(LambFlangeP1.toFixed(3))) {
                   $('#AtFlangeAns' + (i + 1)).val("COMPACT").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
                 } else {
                   $('#AtFlangeAns' + (i + 1)).val("NON-COMPACT").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
@@ -1083,7 +1766,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 $('#AtWeb' + (i + 1)).val(AtWeb[i].toFixed(3))
                 $('#AtWebComp' + (i + 1)).val(AtWeb[i].toFixed(3) + " < " + LambWebP1.toFixed(3))
 
-                if (AtWeb[i].toFixed(3) < LambWebP1.toFixed(3)) {
+                if ( parseFloat(AtWeb[i].toFixed(3)) < parseFloat(LambWebP1.toFixed(3)) ) {
                   $('#AtWebAns' + (i + 1)).val("COMPACT").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
                 } else {
                   $('#AtWebAns' + (i + 1)).val("NON-COMPACT").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
@@ -1098,7 +1781,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 $('#AtResisting' + (i + 1)).val(AtResisting[i].toFixed(3));
                 $('#AtResistingComp' + (i + 1)).val(AtResisting[i].toFixed(3) + " > " + $('#BM').val());
 
-                if (AtResisting[i].toFixed(3) > $('#BM').val()) {
+                if (parseFloat(AtResisting[i].toFixed(3)) > parseFloat($('#BM').val())) {
                   $('#AtResistingAns' + (i + 1)).val("SAFE").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
                 } else {
                   $('#AtResistingAns' + (i + 1)).val("NOT-SAFE").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
@@ -1109,7 +1792,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 $('#AtBending' + (i + 1)).val(AtBending[i].toFixed(3));
                 $('#AtBendingComp' + (i + 1)).val(AtBending[i].toFixed(3) + " > " + $('#BM').val());
 
-                if (AtBending[i].toFixed(3) > $('#BM').val()) {
+                if ( parseFloat(AtBending[i].toFixed(3)) > parseFloat($('#BM').val()) ) {
                   $('#AtBendingAns' + (i + 1)).val("SAFE").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
                 } else {
                   $('#AtBendingAns' + (i + 1)).val("NOT-SAFE").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
@@ -1119,6 +1802,123 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
             }
           });
         }
+
+        // Manual Selection Events
+        $('#EDISelect').on('change', function(){
+          let edid = $('#EDISelect').val();
+          getmanualtrial(edid);
+        });
+
+        // Fetching manual Selection of Trial D
+        function getmanualtrial(Medi){
+          let Fmedi = Medi;
+
+          $.ajax({
+            url: "beam.php",
+            type: "POST",
+            data: {
+              data: Fmedi,
+              AJAXLocator: "manualsearchBeam",
+            },
+            dataType: 'json',
+            success: function (result) {
+              // Fetching Manual EDI Trial D
+              
+                $('#Bd4').val(result[0]["d"]);
+                $('#Btw4').val(result[0]["tw"]);
+                $('#Bbf4').val(result[0]["bf"]);
+                $('#Btf4').val(result[0]["tf"]);
+                $('#BTsx4').val(result[0]["Sx"]);
+                $('#Bk14').val(result[0]["k1"]);
+                $('#Bzx4').val(result[0]["Zx"]);
+                $('#Bry4').val(result[0]["ry"]);
+                $('#Bj4').val(result[0]["j"]);
+                $('#Biy4').val(result[0]["iy"]);
+
+                  // additionals
+                $('#Bw4').val(result[0]["w"]);
+                $('#Ba4').val(result[0]["A"]);
+                $('#Bkdes4').val(result[0]["kdes"]);
+                $('#Brts4').val(result[0]["rts"]);
+                $('#Bho4').val(result[0]["ho"]);
+                $('#Bix4').val(result[0]["ix"]);
+                $('#Brx4').val(result[0]["rx"]);
+                $('#Bzy4').val(result[0]["zy"]);
+                $('#Bsy4').val(result[0]["sy"]);
+                $('#Bcw4').val(result[0]["cw"]);
+
+                var BFy = $('#BFy').val();
+
+              // For Flange
+              var LambFlangeP1 = 0.38 * (Math.sqrt(200000 / BFy));
+
+              var LambFlangeR1 = 1.0 * (Math.sqrt(200000 / BFy));
+
+              // For Web
+              var LambWebP1 = 3.76 * (Math.sqrt(200000 / BFy));
+
+              var LambWebR1 = 5.70 * (Math.sqrt(200000 / BFy));
+
+                let mTbf = result[0]["bf"];
+                let mTtf = result[0]["tf"];
+                let mTtw = result[0]["tw"];
+                let mTd = result[0]["d"];
+                let mTk = result[0]["k1"];
+                let mTzx = result[0]["Zx"];
+                let mTtsx = result[0]["Sx"];
+
+
+                // Flange Analysis
+                let matFlange = mTbf / (2 * mTtf);
+
+                $('#AtFlange4').val(matFlange.toFixed(3));
+                $('#AtFlangeComp4').val(matFlange.toFixed(3) + " < " + LambFlangeP1.toFixed(3));
+
+                if (parseFloat(matFlange.toFixed(3)) < parseFloat(LambFlangeP1.toFixed(3))) {
+                  $('#AtFlangeAns4').val("COMPACT").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
+                } else {
+                  $('#AtFlangeAns4').val("NON-COMPACT").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
+                }
+
+                // Web Analysis
+                let mAtWeb = (mTd - 2 * (mTk)) / mTtw;
+                $('#AtWeb4').val(mAtWeb.toFixed(3))
+                $('#AtWebComp4').val(mAtWeb.toFixed(3) + " < " + LambWebP1.toFixed(3))
+
+                if (parseFloat(mAtWeb.toFixed(3)) < parseFloat(LambWebP1.toFixed(3))) {
+                  $('#AtWebAns4').val("COMPACT").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
+                } else {
+                  $('#AtWebAns4').val("NON-COMPACT").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
+                }
+
+                // Yielding
+                let mAtYielding = (BFy * (mTzx * (Math.pow(10, 3)))) / 1000000;
+                $('#AtYielding4').val(mAtYielding.toFixed(3));
+
+                // Check Resisting Moment
+                let mAtResisting = (mTtsx * 1000) * (BFy * 0.66) / 1000000;
+                $('#AtResisting4').val(mAtResisting.toFixed(3));
+                $('#AtResistingComp4').val(mAtResisting.toFixed(3) + " > " + $('#BM').val());
+
+                if (parseFloat(mAtResisting.toFixed(3)) > parseFloat($('#BM').val())) {
+                  $('#AtResistingAns4').val("SAFE").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
+                } else {
+                  $('#AtResistingAns4').val("NOT-SAFE").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
+                }
+
+                // Bending Moment Capacity
+                let mAtBending = 0.90 * mAtYielding.toFixed(3);
+                $('#AtBending4').val(mAtBending.toFixed(3));
+                $('#AtBendingComp4').val(mAtBending.toFixed(3) + " > " + $('#BM').val());
+
+                if (parseFloat(mAtBending.toFixed(3)) > parseFloat($('#BM').val())) {
+                  $('#AtBendingAns4').val("SAFE").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
+                } else {
+                  $('#AtBendingAns4').val("NOT-SAFE").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
+                }
+            }
+          });
+        };
 
 
 
