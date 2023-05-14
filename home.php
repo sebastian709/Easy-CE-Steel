@@ -75,13 +75,23 @@
         <nav class="sidebar-nav">
           <ul id="sidebarnav" class="pt-4">
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
-                <img src="assets/images/icon/enter.png" alt="" class="px-2"><span class="hide-menu">Login</span>
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="home.php" aria-expanded="false">
+                <img src="assets/images/icon/home.png" alt="" class="px-2"><span class="hide-menu">Home</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="register.php" aria-expanded="false">
-                <img src="assets/images/icon/registered.png" alt="" class="px-2"><span class="hide-menu">Register</span>
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="beam.php" aria-expanded="false">
+                <img src="assets/images/icon/steel.png" alt="" class="px-2"><span class="hide-menu">Beam</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="column.php" aria-expanded="false">
+                <img src="assets/images/icon/columnss.png" alt="" class="px-2"><span class="hide-menu">Column</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="column.php" aria-expanded="false">
+                <img src="assets/images/icon/deck.png" alt="" class="px-2"><span class="hide-menu">Steel Decking</span>
               </a>
             </li>
           </ul>
@@ -95,10 +105,15 @@
       <div class="page-breadcrumb">
         <div class="row">
           <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Login</h4>
+            <h4 class="page-title">Home</h4>
             <div class="ms-auto text-end">
               <nav aria-label="breadcrumb">
-
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                  <!-- <li class="breadcrumb-item active" aria-current="page">
+                    Library
+                  </li> -->
+                </ol>
               </nav>
             </div>
           </div>

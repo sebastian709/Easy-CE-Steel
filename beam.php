@@ -105,7 +105,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
         <nav class="sidebar-nav">
           <ul id="sidebarnav" class="pt-4">
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="home.php" aria-expanded="false">
                 <img src="assets/images/icon/home.png" alt="" class="px-2"><span class="hide-menu">Home</span>
               </a>
             </li>
@@ -162,6 +162,48 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   <div class="col-lg-12">
                     <h3 class="mt-3 mt-3 mb-3 d-inline">Simply Supported</h3>
                     <!-- <button type="button" id="LocalStorage">Test local storage</button> -->
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">Type of Beam:</label>
+                    <div class="input-group mb-3">
+                      <select name="" class="form-control" id="TOB">
+                        <option value="0" disabled selected>Select Type of Beam...</option>
+                        <option value="1">Both Ends are supported by hinged and roller</option>
+                        <option value="2">Fixed on both ends</option>
+                        <option value="3">Fixed at one end</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row variations">
+                  <div class="col-12 form-group">
+                    <label for="">Variation:</label>
+                    <div class="input-group mb-3">
+                      <select name="" class="form-control" id="Types">
+                        <option value="0" disabled selected>Select Variation...</option>
+
+                        <option value="1" class="BE">Uniform distributed load</option>
+                        <option value="2" class="BE">Concentrated load at the center</option>
+                        <option value="3" class="BE">Uniform distributed load and Concentrated load at the center</option>
+
+                        <option value="4" class="FB">Uniform Distributed Load</option>
+                        <option value="5" class="FB">Concentrated load at the center</option>
+
+                        <option value="6" class="FO">Uniform distributed load</option>
+                        <option value="7" class="FO">Concentrated load at the free end</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">Pu:</label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" id="Pu">
+                      <span class="input-group-text">Kn/m</span>
+                    </div>
                   </div>
                 </div>
                 <div class="row">
@@ -233,11 +275,16 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                       </li> -->
                     </ul>
                   </div>
-                  <div class="col-12 bg-light py-2" style="min-height:500px;">
+                  <div class="col-12 bg-light py-2" style="min-height:82vh;">
                     <div class="row">
                       <!-- Visuals Tab -->
-                      <div class="col-12" id="visuals">
-                        <img src="assets/images/beamphoto.png" width="100%" alt="">
+                      <div class="col-12 overflow-auto" id="visuals" style="max-height:82vh;">
+                        <img src="assets/images/fixed_fixedUniformDistributedLoad.jpg" width="100%" alt="">
+                        <img src="assets/images/fixed_fixedCenterLoad.jpg" width="100%" alt="">
+                        <img src="assets/images/cantileverUniformDistributedLoad.jpg" width="100%" alt="">
+                        <img src="assets/images/cantileverEndLoad.jpg" width="100%" alt="">
+                        <img src="assets/images/simplySupportedCenterLoad.jpg" width="100%" alt="">
+                        <img src="assets/images/simplySupportedUniformDistributedLoad.jpg" width="100%" alt="">
                       </div>
                       <!-- Other Results Tab -->
                       <div class="col-12 d-none" id="otherResults">
@@ -277,7 +324,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                     </div>
                                     <div class="row">
                                       <div class="col form-group">
-                                        <label for="Wu">M</label>
+                                        <label for="Wu">Mu</label>
                                         <div class="input-group mb-3">
                                           <input type="number" class="form-control" readonly id="BM">
                                           <span class="input-group-text">Kn/m</span>
@@ -1643,7 +1690,6 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
         $(document).ready(function() {
           $('body').find('img[src$="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"]').parent().closest('a').closest('div').remove();
           // Make the DIV element draggable:
-
         });
 
         //Default value
@@ -1663,6 +1709,34 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
         $('#EDI-Column').hide();
         $('#unLength').val(0);
         $('#history').addClass('d-none');
+        $('.BE').addClass('d-none');
+        $('.FB').addClass('d-none');
+        $('.FO').addClass('d-none');
+        $('.variations').addClass('d-none');
+
+        // Types of Beam
+        $('#TOB').on('change', function() {
+          let TOB = $('#TOB').val();
+
+          if (TOB > 0) {
+            $('.variations').removeClass('d-none');
+            if (TOB == 1) {
+              $('.BE').removeClass('d-none');
+              $('.FB').addClass('d-none');
+              $('.FO').addClass('d-none');
+            } else if (TOB == 2) {
+              $('.BE').addClass('d-none');
+              $('.FB').removeClass('d-none');
+              $('.FO').addClass('d-none');
+            } else if (TOB == 3) {
+              $('.BE').addClass('d-none');
+              $('.FB').addClass('d-none');
+              $('.FO').removeClass('d-none');
+            }
+          } else {
+            $('.variations').addClass('d-none');
+          }
+        });
 
         // unbraced Length Selection
         $('#unLength').on('keyup change', function() {
@@ -1789,7 +1863,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 
         // Getting SX Events
         var BSx;
-        $('#BDL, #BLL, #BLength, #BFy').on('keyup', function() {
+        $('#BDL, #BLL, #BLength, #BFy, #Types').on('keyup change', function() {
           BSx();
         });
 
@@ -1797,22 +1871,122 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
           // Solving Wu
           var BDL = $('#BDL').val();
           var BLL = $('#BLL').val();
-
-          var BWu = 1.2 * BDL + 1.6 * BLL;
-          var new_Bwu = BWu.toFixed(2);
-          $('#BWu').val(new_Bwu);
-
-          // Solving V 
           var BLength = $('#BLength').val();
-          var BV = (BWu * BLength) / 2;
-          var new_BV = BV.toFixed(2);
-          $('#BV').val(new_BV);
 
-          // Solving M
-          var BLengthEx = Math.pow(BLength, 2);
-          var BM = (BWu * BLengthEx) / 8;
-          var new_Bm = BM.toFixed(3);
-          $('#BM').val(new_Bm);
+
+          // Solving Mu
+          let beamTypes = $('#Types').val();
+          let bPu = $('#Pu').val();
+
+          console.log(beamTypes);
+
+          if (beamTypes == 1) {
+            $('#Pu').prop('disabled', true).val('');
+            $('#BDL').prop('disabled', false);
+            $('#BLL').prop('disabled', false);
+
+            var BWu = 1.2 * BDL + 1.6 * BLL;
+            var new_Bwu = BWu.toFixed(2);
+            $('#BWu').val(new_Bwu);
+
+            var BV = (BWu * BLength) / 2;
+            var new_BV = BV.toFixed(2);
+            $('#BV').val(new_BV);
+
+            let Mu = (BWu * (BLength ** 2)) / 8;
+            $('#BM').val(Mu.toFixed(3));
+
+          } else if (beamTypes == 2) {
+            $('#Pu').prop('disabled', false);
+            $('#BDL').prop('disabled', true).val('');
+            $('#BLL').prop('disabled', true).val('');
+
+            var BWu = 1.2 * BDL + 1.6 * BLL;
+            var new_Bwu = BWu.toFixed(2);
+            $('#BWu').val(new_Bwu);
+
+            var BV = bPu / 2;
+            var new_BV = BV.toFixed(2);
+            $('#BV').val(new_BV);
+
+            let Mu2 = (bPu * BLength) / 4;
+            console.log(Mu2);
+            $('#BM').val(Mu2);
+
+          } else if (beamTypes == 3) {
+            $('#Pu').prop('disabled', false);
+            $('#BDL').prop('disabled', false);
+            $('#BLL').prop('disabled', false);
+
+            var BWu = 1.2 * BDL + 1.6 * BLL;
+            var new_Bwu = BWu.toFixed(2);
+            $('#BWu').val(new_Bwu);
+
+            var BV = (BWu * BLength) / 2;
+            var new_BV = BV.toFixed(2);
+            $('#BV').val(new_BV);
+
+            let Mu3 = ((BWu * (BLength ** 2)) / 8) + ((bPu * BLength) / 4);
+            $('#BM').val(Mu3.toFixed(3));
+
+          } else if (beamTypes == 4) {
+            $('#Pu').prop('disabled', true).val('');
+            $('#BDL').prop('disabled', false);
+            $('#BLL').prop('disabled', false);
+
+            var BWu = 1.2 * BDL + 1.6 * BLL;
+            var new_Bwu = BWu.toFixed(2);
+            $('#BWu').val(new_Bwu);
+
+            var BV = (BWu * BLength) / 2;
+            $('#BV').val(BV.toFixed(3));
+
+            let Mu4 = (BWu * (BLength ** 2)) / 8;
+            $('#BM').val(Mu4);
+
+          } else if (beamTypes == 5) {
+            $('#Pu').prop('disabled', true).val('');
+            $('#BDL').prop('disabled', false);
+            $('#BLL').prop('disabled', false);
+
+            let cPu = 1.2 * BDL + 1.6 * BLL;
+            $('#BWu').val(cPu.toFixed(3));
+
+            var BV = cPu / 2;
+            $('#BV').val(BV.toFixed(3));
+
+            let Mu5 = (cPu * BLength) / 8;
+            $('#BM').val(Mu5.toFixed(2));
+
+          } else if (beamTypes == 6) {
+            $('#Pu').prop('disabled', true).val('');
+            $('#BDL').prop('disabled', false);
+            $('#BLL').prop('disabled', false);
+
+            var BWu = 1.2 * BDL + 1.6 * BLL;
+            var new_Bwu = BWu.toFixed(2);
+            $('#BWu').val(new_Bwu);
+
+            var BV = BWu * BLength;
+            $('#BV').val(BV.toFixed(3));
+
+            let Mu6 = (BWu * (BLength ** 2)) / 2;
+            $('#BM').val(Mu6);
+
+          } else if (beamTypes == 7) {
+            $('#Pu').prop('disabled', false);
+            $('#BDL').prop('disabled', true).val('');
+            $('#BLL').prop('disabled', true).val('');
+
+            
+            $('#BV').val(bPu);
+
+            let Mu7 = bPu * BLength;
+            $('#BM').val(Mu7);
+
+          }
+
+
 
           // Solving Fb
           var BFy = $('#BFy').val();
@@ -1821,15 +1995,11 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 
           $('#BFb').val(new_BFb);
 
-          var sixqrt = Math.pow(10, 6);
-          var cuberoot = Math.pow(10, 3);
-          var BSx = (BM * sixqrt) / BFb;
-          var FBSx = BSx / cuberoot;
-          var new_FBSx = FBSx.toFixed(3);
+          let BSx = ($('#BM').val() * 1000) / (0.90 * (BFy));
 
-          $('#BSx').val(new_FBSx);
+          $('#BSx').val(BSx.toFixed(3));
 
-          getTrialSec(new_FBSx);
+          getTrialSec(BSx);
         }
 
         // producing tester

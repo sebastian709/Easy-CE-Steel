@@ -64,10 +64,10 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
         <div class="navbar-header" data-logobg="skin5">
           <a class="navbar-brand" href="index.html">
             <b class="logo-icon ps-2">
-              <img src="assets/images/LightLogo.png" alt="homepage" class="light-logo" width="25" />
+              <img src="assets/images/ECS.png" alt="homepage" class="light-logo" width="40" />
             </b>
             <span class="logo-text ms-2">
-              Easy CE-Steel
+              EASY CE-STEEL
             </span>
           </a><a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
         </div>
@@ -85,15 +85,6 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
             <!-- User profile and search -->
             <!-- ============================================================== -->
             <li class="nav-item dropdown">
-              <a class="
-                    nav-link
-                    dropdown-toggle
-                    text-muted
-                    waves-effect waves-dark
-                    pro-pic
-                  " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="assets/images/icon/gear.png" alt="user" class="rounded-circle" width="31" />
-              </a>
               <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
                 <!-- <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-account me-1 ms-1"></i> My
                   Profile</a>
@@ -121,7 +112,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
         <nav class="sidebar-nav">
           <ul id="sidebarnav" class="pt-4">
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="home.php" aria-expanded="false">
                 <img src="assets/images/icon/home.png" alt="" class="px-2"><span class="hide-menu">Home</span>
               </a>
             </li>
@@ -185,6 +176,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     <label for="">End Condition:</label>
                     <div class="input-group mb-3">
                       <select name="" id="EnC" class="form-control">
+                        <option value="">Select End Condition...</option>
                         <option value="0.65">0.65</option>
                         <option value="0.80">0.80</option>
                         <option value="1.2">1.2</option>
@@ -218,7 +210,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   <div class="col-12 form-group">
                     <label for="">Pu:</label>
                     <div class="input-group mb-3">
-                      <input type="number" class="form-control" id="Pu">
+                      <input type="number" class="form-control" id="Pu" disabled>
                       <span class="input-group-text">Kn</span>
                     </div>
                   </div>
@@ -252,6 +244,14 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 </div>
                 <div class="row">
                   <div class="col-12 form-group">
+                    <label for="">Result:</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" id="Result" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
                     <button class="btn btn-info form-control">Save</button>
                   </div>
                 </div>
@@ -275,7 +275,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     <div class="row">
                       <!-- Visuals Tab -->
                       <div class="col-12" id="visuals">
-                        <img src="assets/images/beamphoto.png" width="100%" alt="">
+                        <img src="assets/images/columnphoto.PNG" width="100%" alt="">
                       </div>
                       <!-- Other Results Tab -->
                       <div class="col-12 d-none" id="otherResults">
@@ -1213,6 +1213,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
       let OPnNCS = [];
       let OPn = [];
       let AgN = [];
+      let ResNCS = [];
 
       function NCS() {
         for (x = 0; x < 3; x++) {
@@ -1228,12 +1229,33 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 
           let PuNCS = $('#Pu').val();
 
-          if(parseInt(OPnNCS[x]) > parseInt(PuNCS)){
+          if (parseInt(OPnNCS[x]) > parseInt(PuNCS)) {
             $('#Res' + (x + 1)).val('Adequate').removeClass('bg-danger').addClass('bg-success text-light');
-          }else{
+          } else {
             $('#Res' + (x + 1)).val('Inadequate').removeClass('bg-success').addClass('bg-danger text-light');
           }
-          
+
+
+          ResNCS[x] = $('#Res' + (x + 1)).val();
+
+          if (ResNCS[0] == 'Adequate') {
+
+            $('#Result').val($('#Edi1').val());
+
+          } else {
+
+            if (ResNCS[1] == 'Adequate') {
+
+              $('#Result').val($('#Edi2').val());
+
+            } else {
+              if (ResNCS[2] == 'Adequate') {
+
+                $('#Result').val($('#Edi3').val());
+
+              }
+            }
+          }
         }
       }
 
