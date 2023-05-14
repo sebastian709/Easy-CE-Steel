@@ -6,12 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Home</title>
+  <title>ECES - Home</title>
   <!-- Favicon icon -->
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://i.pinimg.com/564x/68/d1/fe/68d1fedb9f6e107b5e6dd68396870a54.jpg" />
   <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet" />
   <link href="dist/css/style.min.css" rel="stylesheet" />
 </head>
+
 
 <body>
   <div class="preloader">
@@ -20,26 +21,23 @@
       <div class="lds-pos"></div>
     </div>
   </div>
-  <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-    data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+  <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
     <header class="topbar" data-navbarbg="skin5">
       <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="navbar-header" data-logobg="skin5">
           <a class="navbar-brand" href="index.html">
             <b class="logo-icon ps-2">
-              <img src="assets/images/LightLogo.png" alt="homepage" class="light-logo" width="25" />
+              <img src="assets/images/ECS.png" alt="homepage" class="light-logo" width="40" />
             </b>
             <span class="logo-text ms-2">
               Easy CE-Steel
             </span>
-          </a><a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-              class="ti-menu ti-close"></i></a>
+          </a><a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
         </div>
         <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
           <ul class="navbar-nav float-start me-auto">
             <li class="nav-item d-none d-lg-block">
-              <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
-                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
+              <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
             </li>
           </ul>
           <!-- ============================================================== -->
@@ -87,16 +85,22 @@
           <ul id="sidebarnav" class="pt-4">
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
-                <i class="fas fa-home"></i><span class="hide-menu">Dashboard</span></a>
+                <img src="assets/images/icon/home.png" alt="" class="px-2"><span class="hide-menu">Home</span>
+              </a>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="beam.php" aria-expanded="false">
-                <img src="assets/images/icon/beam.png" alt="" class="px-2"><span class="hide-menu">Beam</span>
+                <img src="assets/images/icon/steel.png" alt="" class="px-2"><span class="hide-menu">Beam</span>
               </a>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="column.php" aria-expanded="false">
-                <img src="assets/images/icon/beam.png" alt="" class="px-2"><span class="hide-menu">Column</span>
+                <img src="assets/images/icon/columnss.png" alt="" class="px-2"><span class="hide-menu">Column</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="column.php" aria-expanded="false">
+                <img src="assets/images/icon/deck.png" alt="" class="px-2"><span class="hide-menu">Steel Decking</span>
               </a>
             </li>
           </ul>
@@ -154,12 +158,15 @@
   <script src="dist/js/pages/chart/chart-page-init.js"></script>
 
   <script>
-    $(document).ready(function () {
-      
-      
+    $(document).ready(function() {
+      $('body').find('img[src$="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"]').parent().closest('a').closest('div').remove();
+    });
+    $(document).ready(function() {
+
+
       var data = localStorage.getItem("palette");
       var parse = JSON.parse(data);
-      var array = $.map(parse, function (value, index) {
+      var array = $.map(parse, function(value, index) {
         return [value];
       });
 
@@ -169,18 +176,27 @@
       } else {
         const lightmode = {
           info: "lightmode",
-          used: [
-            { name: "Black", color: "Angular" },
-            { name: "1st Light", color: "Angular" },
-            { name: "2nd Light", color: "Angular" },
-            { name: "3rd Light", color: "Angular" },
+          used: [{
+              name: "Black",
+              color: "Angular"
+            },
+            {
+              name: "1st Light",
+              color: "Angular"
+            },
+            {
+              name: "2nd Light",
+              color: "Angular"
+            },
+            {
+              name: "3rd Light",
+              color: "Angular"
+            },
           ],
         };
         localStorage.setItem("palette", JSON.stringify(lightmode));
       }
     });
-
-
   </script>
 
 

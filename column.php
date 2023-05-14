@@ -10,14 +10,10 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
   } else {
     $locator = $_GET['AJAXLocator'];
   }
-  if ($locator == "searchBeam") {
-    $BSx = $_POST['data']; //AG
+  if ($locator == "columnTrials") {
+    $BSx = $_POST['data'];
 
-   $sql = "SELECT * FROM `column_aisc` WHERE `A` > " . $BSx . " AND `Type` = 'W' ORDER BY `A` ASC LIMIT 3";
-
-    /*$sql = " SELECT * FROM
-    (SELECT * FROM `column_aisc` WHERE `A` > " . $BSx . " AND `Type` = 'w'  ORDER BY `A`  ASC LIMIT 100) b 
-    ORDER BY 'ID'  ASC  LIMIT 100"; */
+    $sql = "SELECT * FROM `beam_aisc` WHERE `A` > " . $BSx . " AND `Type` = 'W' ORDER BY `A` ASC LIMIT 3";
 
     $result = mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($connection));
 
@@ -29,9 +25,15 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
     exit;
   }
 }
-
-
 ?>
+<style>
+  .settings {
+    position: fixed;
+    /* bottom: 0px; */
+    top: 50%;
+    right: 5px;
+  }
+</style>
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -41,22 +43,22 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Home</title>
+  <title>ECES - Column</title>
   <!-- Favicon icon -->
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://i.pinimg.com/564x/68/d1/fe/68d1fedb9f6e107b5e6dd68396870a54.jpg" />
   <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet" />
   <link href="dist/css/style.min.css" rel="stylesheet" />
 </head>
 
 <body>
+  <script src="https://kit.fontawesome.com/4dde1986c6.js" crossorigin="anonymous"></script>
   <div class="preloader">
     <div class="lds-ripple">
       <div class="lds-pos"></div>
       <div class="lds-pos"></div>
     </div>
   </div>
-  <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-    data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+  <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
     <header class="topbar" data-navbarbg="skin5">
       <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="navbar-header" data-logobg="skin5">
@@ -67,14 +69,12 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
             <span class="logo-text ms-2">
               Easy CE-Steel
             </span>
-          </a><a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-              class="ti-menu ti-close"></i></a>
+          </a><a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
         </div>
         <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
           <ul class="navbar-nav float-start me-auto">
             <li class="nav-item d-none d-lg-block">
-              <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
-                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
+              <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
             </li>
           </ul>
           <!-- ============================================================== -->
@@ -122,16 +122,22 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
           <ul id="sidebarnav" class="pt-4">
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
-                <i class="fas fa-home"></i><span class="hide-menu">Dashboard</span></a>
+                <img src="assets/images/icon/home.png" alt="" class="px-2"><span class="hide-menu">Home</span>
+              </a>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="beam.php" aria-expanded="false">
-                <img src="assets/images/icon/beam.png" alt="" class="px-2"><span class="hide-menu">Beam</span>
+                <img src="assets/images/icon/steel.png" alt="" class="px-2"><span class="hide-menu">Beam</span>
               </a>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="column.php" aria-expanded="false">
-                <img src="assets/images/icon/" alt="" class="px-2"><span class="hide-menu">Column</span>
+                <img src="assets/images/icon/columnss.png" alt="" class="px-2"><span class="hide-menu">Column</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="beam.php" aria-expanded="false">
+                <img src="assets/images/icon/deck.png" alt="" class="px-2"><span class="hide-menu">Steel Decking</span>
               </a>
             </li>
           </ul>
@@ -162,557 +168,751 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
       <!-- Container fluid  -->
       <div class="container-fluid">
         <div class="row card">
-          <div class="col-lg-6">
+          <div class="col-lg-12 p-5">
+            <button type="button" class="btn btn-info settings" data-bs-toggle="modal" data-bs-target="#exampleModal" style="height:90px; border-radius:20px 0px 0px 20px;">
+              <i class="fas fa-wrench fa-xl"></i>
+            </button>
             <div class="row">
-              <div class="col-lg-12">
-                <h3 class="mt-3 ps-4 mt-5 mb-3">Title</h3>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-10 form-group ps-5">
-                <label for="">PLL:</label>
-                <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="PLL">
-                  <span class="input-group-text">Kn</span>
+              <div class="col-lg-6">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h3 class="mt-3 mt-3 mb-3 d-inline">Long Column</h3>
+                    <!-- <button type="button" id="LocalStorage">Test local storage</button> -->
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-10 form-group ps-5">
-                <label for="">PDL:</label>
-                <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="PDL">
-                  <span class="input-group-text">Kn</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-10 form-group ps-5">
-                <label for="">Length:</label>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" id="Length">
-                  <span class="input-group-text">m</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-10 form-group ps-5">
-                <label for="">K:</label>
-                <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="K">
-                  <span class="input-group-text"></span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-10 form-group ps-5">
-                <label for="">K/lr:</label>
-                <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="assume_KL">
-                  <span class="input-group-text"></span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-10 form-group ps-5">
-                <label for="">LRFD:</label>
-                <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="lrfd" readonly> 
-                  <span class="input-group-text">kN</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-10 form-group ps-5">
-                <label for="">Steel:</label>
-                <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="steel" readonly> 
-                  <span class="input-group-text">MPa</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-10 mb-5 ps-5">
-                <div class="accordion" id="accordionExample">
-                  <div class="accordion-item border-0">
-                    <h2 class="accordion-header" id="headingThree">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                       Critical Buckling Stress
-                      </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <div class="row">
-                          <div class="col">
-                            <h5></h5>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col form-group">
-                            <label for="Wu">Fe</label>
-                            <div class="input-group mb-3">
-                              <input type="number" class="form-control" readonly id="Fe">
-                              <span class="input-group-text">MPa</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col form-group">
-                            <label for="Wu">Fcr</label>
-                            <div class="input-group mb-3">
-                              <input type="number" class="form-control" readonly id="Fcr">
-                              <span class="input-group-text">MPa</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col form-group">
-                            <label for="Wu">Ag</label>
-                            <div class="input-group mb-3">
-                              <input type="number" class="form-control" readonly id="Ag">
-                              <span class="input-group-text">Kn/m</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">End Condition:</label>
+                    <div class="input-group mb-3">
+                      <select name="" id="EnC" class="form-control">
+                        <option value="0.65">0.65</option>
+                        <option value="0.80">0.80</option>
+                        <option value="1.2">1.2</option>
+                        <option value="1.0">1.0</option>
+                        <option value="2.1">2.1</option>
+                        <option value="2.0">2.0</option>
+                      </select>
+                      <!-- <span class="input-group-text">Kn/m</span> -->
                     </div>
                   </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">PLL:</label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" id="PLL">
+                      <span class="input-group-text">Kn/m</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">PDL:</label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" id="PDL">
+                      <span class="input-group-text">Kn/m</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">Pu:</label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" id="Pu">
+                      <span class="input-group-text">Kn</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">KL/r:</label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" id="Klr">
+                    </div>
+                    <label for="" class="text-info"> Note: Recommended value for KL/r is (40- 60) <200 </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">Fy:</label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" id="CFy">
+                      <span class="input-group-text">Kn/m</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">Length:</label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" id="Length">
+                      <span class="input-group-text">m</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <button class="btn btn-info form-control">Save</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="row" style="border:1px solid #DEE2E6; border-radius: 5px 5px 0px 0px;">
+                  <div class="col-12" style="border-bottom:1px solid #DEE2E6;">
+                    <ul class="nav nav-tabs pt-2">
+                      <li class="nav-item">
+                        <a class="nav-link text-dark active" href="#" id="bvisuals">Visuals</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" id="bother">Other Results</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-dark" href="#" id="bhistory">History</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-12 bg-light py-2" style="min-height:500px;">
+                    <div class="row">
+                      <!-- Visuals Tab -->
+                      <div class="col-12" id="visuals">
+                        <img src="assets/images/beamphoto.png" width="100%" alt="">
+                      </div>
+                      <!-- Other Results Tab -->
+                      <div class="col-12 d-none" id="otherResults">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="accordion" id="accordionExample">
+                              <div class="accordion-item border-0">
+                                <h2 class="accordion-header" id="headingOne">
+                                  <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Critical Buckling Stress
+                                  </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                  <div class="accordion-body">
+                                    <div class="row">
+                                      <div class="col form-group">
+                                        <label for="Wu">Fe</label>
+                                        <div class="input-group mb-3">
+                                          <input type="number" class="form-control" readonly id="Fe">
+                                          <span class="input-group-text">Kn</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item border-0">
+                                <h2 class="accordion-header" id="headingTwo">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Flexural Buckling Stress
+                                  </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                  <div class="accordion-body">
+                                    <div class="row">
+                                      <div class="col form-group">
+                                        <label for="Wu">Fcr</label>
+                                        <div class="input-group mb-3">
+                                          <input type="number" class="form-control" readonly id="Fcr">
+                                          <span class="input-group-text">Kn</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item border-0">
+                                <h2 class="accordion-header" id="headingThree">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Gross Area(Ag)
+                                  </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                  <div class="accordion-body">
+                                    <div class="row">
+                                      <div class="col form-group">
+                                        <label for="Wu">Ag</label>
+                                        <div class="input-group mb-3">
+                                          <input type="number" class="form-control" readonly id="Ag">
+                                          <span class="input-group-text">Kn</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item border-0">
+                                <h2 class="accordion-header" id="headingFour">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Trial Section
+                                  </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                  <div class="accordion-body">
+                                    <div class="row" id="suggestions_trial">
+                                      <div class="col-12">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Suggestions</h5>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- Check 1 -->
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col">
+                                            <h5>Trial A</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">EDI</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Edi1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Ag</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="TAg1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Ry</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Ry1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Rx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Rx1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- Check 2 -->
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col">
+                                            <h5>Trial B</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">EDI</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Edi2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Ag</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="TAg2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Ry</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Ry2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Rx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Rx2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- Check 3 -->
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col">
+                                            <h5>Trial C</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">EDI</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Edi3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Ag</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="TAg3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Ry</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Ry3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Rx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Rx3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row" id="manual_trial">
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Manual Selection</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col">
+                                            <h5>Trial D</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">EDI</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Edi4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Ag</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="TAg4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Ry</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Ry4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Rx</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Rx4">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item border-0">
+                                <h2 class="accordion-header" id="headingFive">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    Check For Adequacy
+                                  </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                  <div class="accordion-body">
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial A</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">X-Axis</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="XAx1">
+                                              <!-- <span class="input-group-text">Kn</span> -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Y-Axis</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="YAx1">
+                                              <!-- <span class="input-group-text">Kn</span> -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial B</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">X-Axis</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="XAx2">
+                                              <!-- <span class="input-group-text">Kn</span> -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Y-Axis</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="YAx2">
+                                              <!-- <span class="input-group-text">Kn</span> -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial C</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">X-Axis</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="XAx3">
+                                              <!-- <span class="input-group-text">Kn</span> -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Y-Axis</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="YAx3">
+                                              <!-- <span class="input-group-text">Kn</span> -->
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item border-0">
+                                <h2 class="accordion-header" id="headingSix">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    Critical Buckling Stress
+                                  </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                  <div class="accordion-body">
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial A</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
 
-                  <div class="accordion-item border-0">
-                    <h2 class="accordion-header" id="heading2">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                        Trial Section
-                      </button>
-                    </h2>
-                    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <div class="row">
-                          <!-- Check 1 -->
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial A</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">EDI</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="BEdi1">
+                                          <div class="col form-group">
+                                            <label for="Wu">Fe</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="Fe1">
+                                              <span class="input-group-text">Kn</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial B</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Fe</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="Fe2">
+                                              <span class="input-group-text">Kn</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial C</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Fe</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="Fe3">
+                                              <span class="input-group-text">Kn</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Ag</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Ag1">
+                              <div class="accordion-item border-0">
+                                <h2 class="accordion-header" id="headingSeven">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                    Flexural Buckling Stress
+                                  </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+                                  <div class="accordion-body">
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial A</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+
+                                          <div class="col form-group">
+                                            <label for="Wu">Fcr</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="Fcr1">
+                                              <span class="input-group-text">Kn</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial B</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Fcr</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="Fcr2">
+                                              <span class="input-group-text">Kn</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial C</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Fcr</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="Fcr3">
+                                              <span class="input-group-text">Kn</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Rx</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Rx1">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Ry</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Ry1">
-                                </div>
-                              </div>
-                            </div>                      
-                          </div>
-                          <!-- Check 2 -->
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial B</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">EDI</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="BEdi2">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Ag</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Ag2">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Rx</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Rx2">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Ry</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Ry2">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- Check 3 -->
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial C</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">EDI</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="BEdi3">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Ag</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Ag3">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Rx</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Rx3">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Ry</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Ry3">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item border-0">
-                    <h2 class="accordion-header" id="heading3">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                        Check Adequency
-                      </button>
-                    </h2>
-                    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading2"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <div class="row">
-                          <!-- Check 1 -->
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial A</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Slenderness ratio</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="sr1">
-                                </div>
-                              </div>
-                            </div>   
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Fe</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="fe1">
-                                </div>
-                              </div>
-                            </div> 
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Fcr</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Afcr1">
-                                </div>
-                              </div>
-                            </div>                                            
-                          </div>
-                          <!-- Check 2 -->
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial B</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Slenderness ratio</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="sr2">
-                                </div>
-                              </div>
-                            </div>   
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Fe</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="fe2">
-                                </div>
-                              </div>
-                            </div> 
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Fcr</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Afcr2">
-                                </div>
-                              </div>
-                            </div>                
-                          </div>
-                          <!-- Check 3 -->
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial C</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Slenderness ratio</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="sr3">
-                                </div>
-                              </div>
-                            </div>   
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Fe</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="fe3">
-                                </div>
-                              </div>
-                            </div> 
-                            <div class="row">
-                              <div class="col form-group">
-                                <label for="">Fcr</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="Afcr3">
-                                </div>
-                              </div>
-                            </div>                
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item border-0">
-                    <h2 class="accordion-header" id="heading4">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                        Limiting Factor
-                      </button>
-                    </h2>
-                    <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <div class="row">
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial Section A</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                              <label for="">Fe</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="lf1">
-                                </div>
-                                <label for="">Pn</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="pn1">
-                                </div>
-                                <label for="">LRFD</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="lrfd_1">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial Section B</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                              <label for="">Fe</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="lf2">
-                                </div>
-                                <label for="">Pn</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="pn2">
-                                </div>
-                                <label for="">LRFD</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="lrfd_2">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial Section C</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                              <label for="">Fe</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="lf3">
-                                </div>
-                                <label for="">Pn</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="pn3">
-                                </div>
-                                <label for="">LRFD</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="lrfd_3">
+                              <div class="accordion-item border-0">
+                                <h2 class="accordion-header" id="headingEight">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                    Nominal Compressive Strength
+                                  </button>
+                                </h2>
+                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+                                  <div class="accordion-body">
+                                    <div class="row">
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial A</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Pn</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="Pn1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">ØPn</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="OPn1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Result</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Res1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial B</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Pn</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="Pn2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">ØPn</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="OPn2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Result</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Res2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="row">
+                                          <div class="col text-center">
+                                            <h5>Trial C</h5>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Pn</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="Pn3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">ØPn</label>
+                                            <div class="input-group mb-3">
+                                              <input type="number" class="form-control" readonly id="OPn3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="Wu">Result</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="Res3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item border-0">
-                    <h2 class="accordion-header" id="heading5">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                        Analysis
-                      </button>
-                    </h2>
-                    <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <div class="row">
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial Section A</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                              <label for="">Stress of Section</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="stress1">
-                                </div>
-                                <label for="">Load Combination</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="analysis1">
-                                </div>
-                                <label for="">Result</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="result1">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial Section B</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                              <label for="">Stress of Section</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="stress2">
-                                </div>
-                                <label for="">Load Combination</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="analysis2">
-                                </div>
-                                <label for="">Result</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="result2">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="row">
-                              <div class="col">
-                                <h5>Trial Section C</h5>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col form-group">
-                              <label for="">Stress of Section</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="stress3">
-                                </div>
-                                <label for="">Load Combination</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="analysis3">
-                                </div>
-                                <label for="">Result</label>
-                                <div class="input-group mb-3">
-                                  <input type="text" class="form-control" readonly id="result3">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                      <!-- History Tab -->
+                      <div class="col-12" id="history">
+                        Comming Soon!
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-6">
           </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Simply Supported Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="">Fy Option:</label>
+                    <div class="input-group mb-3">
+                      <button type="button" class="btn form-control" id="manual">Manual Typing</button>
+                      <button type="button" class="btn form-control" id="selections">Select ASTM</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" id="ASTM-Column">
+                  <div class="col-12 form-group">
+                    <label for="">ASTM Designation:</label>
+                    <div class="input-group mb-3">
+                      <!-- <input type="number" class="form-control" id="BFy"> -->
+                      <select name="" id="select-designation" class="form-control" disabled>
+                        <option value="0" selected>Select Designation ...</option>
+                        <?php
+                        $sql1 = "SELECT `astm_name`, `ksi` FROM `astm`";
+                        $result = mysqli_query($conn, $sql1);
+
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          $astm[] = $row;
+                        }
+
+                        foreach ($astm as $value) {
+                          echo "<option value='" . $value['ksi'] . "'>" . $value['astm_name'] . " - " . $value['ksi'] . "</option>";
+                        }
+                        ?>
+                      </select>
+                      <span class="input-group-text">Kn/m</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <button type="button" class="btn btn-danger form-control mt-2" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="ind">
       </div>
       <footer class="footer text-center">
         © 2023 — <b>Easy CE-Steel</b>
@@ -736,311 +936,307 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
   <script src="dist/js/pages/chart/chart-page-init.js"></script>
 
   <script>
-    var BSx;
-    $('#BDL, #BLL, #Length, #BFy, #PLL, #PDL, #assume_KL, #Fe, #Ag, #lrfd, #K, #sr1, #sr2, #fe1, #Afcr1, #lf1').on('keyup', function () {
-      BSx();
+    $(document).ready(function() {
+      $('body').find('img[src$="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"]').parent().closest('a').closest('div').remove();
+      // Make the DIV element draggable:
+
     });
 
-    function BSx() {
-      
+    //Default value
+    $('#manual').addClass('btn-info');
+    $('#selections').addClass('btn-secondary');
+    $('#select-designation').prop('disabled', true);
+    $('#manual_trial').hide();
+    $('#manual_trial2').hide();
+    $('#unLength').prop('disabled', true);
+    $('#continous').addClass('btn-info');
+    $('#unbraced').addClass('btn-secondary');
+    $('#suggestions-tab').addClass('btn-info');
+    $('#manual-tab').addClass('btn-secondary');
+    $('#EDISelect').prop('disabled', true);
+    $('#ASTM-Column').hide();
+    $('#Lb-Column').hide();
+    $('#EDI-Column').hide();
+    $('#unLength').val(0);
+    $('#history').addClass('d-none');
 
-      //solving LRFD
+
+
+    // manual and select option in FY
+    $('#manual, #selections').on('click', function() {
+      let active = this.id;
+
+      if (active == 'manual') {
+        $('#manual').removeClass('btn-secondary').addClass('btn-info');
+        $('#selections').removeClass('btn-info').addClass('btn-secondary');
+        $('#select-designation').prop('disabled', true);
+        $('#CFy').prop('disabled', false);
+        $('#select-designation option[value="0"]').prop('selected', true);
+        $('#CFy').val('');
+        $('#ASTM-Column').hide();
+      } else {
+        $('#manual').removeClass('btn-info').addClass('btn-secondary');
+        $('#selections').removeClass('btn-secondary').addClass('btn-info');
+        $('#select-designation').prop('disabled', false);
+        $('#CFy').prop('disabled', true);
+        $('#select-designation option[value="0"]').prop('selected', true);
+        $('#CFy').val('');
+        $('#ASTM-Column').show();
+      }
+
+    });
+
+    // selecting ASTM
+    $('#select-designation').on('change', function() {
+      let ksi = $('#select-designation').val();
+      ksi = ksi * 6.895;
+      $('#CFy').val(ksi.toFixed(0));
+    });
+
+
+
+    // Trial manual and suggestions tab event
+    $('#suggestions-tab, #manual-tab').on('click', function() {
+      let Tab = this.id;
+
+      if (Tab == 'suggestions-tab') {
+        $('#suggestions-tab').removeClass('btn-secondary').addClass('btn-info');
+        $('#manual-tab').removeClass('btn-info').addClass('btn-secondary');
+        $('#suggestions_trial').show();
+        $('#manual_trial').hide();
+        $('#suggestions_trial2').show();
+        $('#manual_trial2').hide();
+        $('#EDISelect').prop('disabled', true);
+        $('#EDI-Column').hide();
+        $('#sugg-Column').show();
+        $('#EDISelect option[value="0"]').prop('selected', true);
+      } else {
+        $('#suggestions-tab').removeClass('btn-info').addClass('btn-secondary');
+        $('#manual-tab').removeClass('btn-secondary').addClass('btn-info');
+        $('#suggestions_trial').hide();
+        $('#manual_trial').show();
+        $('#suggestions_trial2').hide();
+        $('#manual_trial2').show();
+        $('#EDISelect').prop('disabled', false);
+        $('#EDI-Column').show();
+        $('#sugg-Column').hide();
+        $('#EDISelect option[value="0"]').prop('selected', true);
+      }
+    });
+
+    // Main Tabs
+    $('#bvisuals, #bother, #bhistory').on('click', function() {
+      let Tab = this.id
+
+      if (Tab == null || Tab == 'bvisuals') {
+        $('#bvisuals').addClass('active');
+        $('#bother').removeClass('active');
+        $('#bhistory').removeClass('active');
+
+        $('#visuals').removeClass('d-none');
+        $('#otherResults').addClass('d-none');
+        $('#history').addClass('d-none');
+      } else if (Tab == 'bother') {
+        $('#bvisuals').removeClass('active');
+        $('#bother').addClass('active');
+        $('#bhistory').removeClass('active');
+
+        $('#visuals').addClass('d-none');
+        $('#otherResults').removeClass('d-none');
+        $('#history').addClass('d-none');
+      } else if (Tab == 'bhistory') {
+        $('#bvisuals').removeClass('active');
+        $('#bother').removeClass('active');
+        $('#bhistory').addClass('active');
+
+        $('#visuals').addClass('d-none');
+        $('#otherResults').addClass('d-none');
+        $('#history').removeClass('d-none');
+      }
+    });
+
+
+    //Global Variable
+
+
+    $('#PLL, #PDL, #Klr, #CFy, #Length, #EnC').on('keydown change', function() {
       var PLL = $('#PLL').val();
       var PDL = $('#PDL').val();
-      var RS = 1.2 * PDL + 1.6 * PLL;
+      var Klr = $('#Klr').val();
+      var CFy = $('#CFy').val();
+      var MFe = Fe(Klr).toFixed(2);
+      var MFcr = Fcr(CFy, Klr).toFixed(2);
 
-      $('#lrfd').val(RS);
+      PU(PLL, PDL);
+      // Fcr(CFy, Klr);
+      Ag();
 
-      //solving A992 steel
-      var Steel = $('#assume_KL').val();
-      var MPa = Steel * 6.895;
-      var newMPa = Math.round(MPa);
-      $('#steel').val(newMPa); 
+      $('#Fe').val(MFe);
+      $('#Fcr').val(MFcr);
+    });
 
-      //solving fe for critical buckling stress
-      var Fe =9.86960440109 * 200000 / Steel**2 ;
-      var new_Fe = Fe.toFixed(2);
-      $('#Fe').val(new_Fe);
-
-      //solving Fcr for critical buckling stress
-      var Fcr = 0.658 ** (newMPa / new_Fe) * newMPa;
-      var newFcr = Fcr.toFixed(2);
-      $('#Fcr').val(newFcr);
-      
-
-      //solving for slenderness ratio (sr1)
-      var K = $('#K').val(); // value of k = 0.8 in tthe example
-      var L = $('#Length').val(); // value ng length
-      var NL = L * 1000; //convert t0 mm 4500
-
-      var RY = $('#Ry1').val(); // value ng ry1 /trial a
-      var S = K * NL / RY;
-      var newS = S.toFixed(3);
-      $('#sr1').val(newS);
-
-      var RY2 = $('#Ry2').val(); // value ng ry2 /trial b
-      var S2 = K * NL / RY2;
-      var newS2 = S2.toFixed(3);
-      $('#sr2').val(newS2);
-
-      var RY3 = $('#Ry3').val(); // value ng ry3 /trial c
-      var S3 = K * NL / RY3;
-      var newS3 = S3.toFixed(3);
-      $('#sr3').val(newS3);
-
-      //solve for fe
-      var ratio = $('#sr1').val();
-      var pisquare = 9.86960440109;
-      var KL = pisquare * 200000;
-      var KL2 = ratio**2;
-      var FE = KL / KL2;
-      var newFE = FE.toFixed(3);
-
-      $('#fe1').val(newFE);
-
-      //solve for fe
-      var ratio2 = $('#sr2').val();
-      var KL2 = pisquare * 200000;
-      var KL22 = ratio2**2;
-      var FE2 = KL2 / KL22;
-      var newFE2 = FE2.toFixed(3);
-
-      $('#fe2').val(newFE2);
-      //solve for fe
-      var ratio3 = $('#sr3').val();
-      var KL3 = pisquare * 200000;
-      var KL33 = ratio3**2;
-      var FE3 = KL3 / KL33;
-      var newFE3 = FE3.toFixed(3);
-
-      $('#fe3').val(newFE3);
-
-      //solve the fcr
-      var steel =  $('#steel').val();
-      var Afe1 = $('#fe1').val();
-      var SA = steel / Afe1;
-      var AFCR = (0.658**SA) * steel;
-      var newAFCR = AFCR.toFixed(3);
-
-      $('#Afcr1').val(newAFCR);
-
-      //solve the fcr
-      var Afe2 = $('#fe2').val();
-      var SA2 = steel / Afe2;
-      var AFCR2 = (0.658**SA2) * steel;
-      var newAFCR2 = AFCR2.toFixed(3);
-
-      $('#Afcr2').val(newAFCR2);
-
-      //solve the fcr
-      var Afe3 = $('#fe3').val();
-      var SA3 = steel / Afe3;
-      var AFCR3 = (0.658**SA3) * steel;
-      var newAFCR3 = AFCR3.toFixed(3);
-
-      $('#Afcr3').val(newAFCR3);
-
-      //Limiting Factor fe
-      
-      var r = 200000 / steel;
-      var result = 4.71 * Math.sqrt(r);
-      var Nresult = result.toFixed(3);
-      $('#lf1').val(Nresult);
-      $('#lf2').val(Nresult);
-      $('#lf3').val(Nresult);
-
-
-      //For PN
-      var AG_1 = $('#Ag1').val();
-      var PN1 = AG_1 * AFCR / 1000;
-      var newPN1 = PN1.toFixed(3);
-
-      $('#pn1').val(newPN1);
-
-      var AG_2 = $('#Ag2').val();
-      var PN2 = AG_2 * AFCR2 / 1000;
-      var newPN2 = PN2.toFixed(3);
-
-      $('#pn2').val(newPN2);
-
-      var AG_3 = $('#Ag3').val();
-      var PN3 = AG_3 * AFCR3 / 1000;
-      var newPN3 = PN3.toFixed(3);
-
-      $('#pn3').val(newPN3);
-
-      //LRFD
-      var LPN1 = $('#pn1').val();
-      var lrfd_1 = 0.9 * LPN1;
-      var newlrfd1 = lrfd_1.toFixed(3);
-
-      $('#lrfd_1').val(newlrfd1);
-
-      var LPN2 = $('#pn2').val();
-      var lrfd_2 = 0.9 * LPN2;
-      var newlrfd2 = lrfd_2.toFixed(3);
-
-      $('#lrfd_2').val(newlrfd2);
-
-      var LPN3 = $('#pn3').val();
-      var lrfd_3 = 0.9 * LPN3;
-      var newlrfd3 = lrfd_3.toFixed(3);
-
-      $('#lrfd_3').val(newlrfd3);
-
-      //Stress of section
-      var vlrfd1 = $('#lrfd_1').val();
-      var vlrfd2 = $('#lrfd_2').val();
-      var vlrfd3 = $('#lrfd_3').val();
-
-      $('#stress1').val(vlrfd1);
-      $('#stress2').val(vlrfd3);
-      $('#stress3').val(vlrfd3);
-
-      //load combination trial A
-        var a = $("#lrfd").val();
-				var b = $("#lrfd_1").val();
-				var result;
-
-				if (a > b) {
-					result = ">";
-				} else if (a < b) {
-					result = "<";
-				} else {
-					result = "=";
-				}
-
-				$("#analysis1").val(a + " " + result + " " + b);
-
-        //load combination trial B
-        var a2 = $("#lrfd").val();
-				var b2 = $("#lrfd_2").val();
-				var result2;
-
-				if (a2 > b2) {
-					result2 = ">";
-				} else if (a2 < b2) {
-					result2 = "<";
-				} else {
-					result2 = "=";
-				}
-
-				$("#analysis2").val(a2 + " " + result2 + " " + b2);
-
-         //load combination trial C
-         var a3 = $("#lrfd").val();
-				var b3 = $("#lrfd_3").val();
-				var result3;
-
-				if (a3 > b3) {
-					result3 = ">";
-				} else if (a3 < b3) {
-					result3 = "<";
-				} else {
-					result3 = "=";
-				}
-
-				$("#analysis3").val(a3 + " " + result3 + " " + b3);
-
-        //final result
-        var x = parseInt($("#lrf_1").val());
-				var y = parseInt($("#lrfd").val());
-        var Pass = "ADEQUATE";
-        var Fail = "INADEQUATE";
-
-				var Fresult;
-
-				if (x > y) {
-					Fresult =  $('#result1').val(Pass);
-          $('#result1').css('background-color','green');
-          $('#result1').css('color','white');
-				} else {
-					Fresult =  $('#result1').val(Fail);
-          $('#result1').css('background-color','red');
-          $('#result1').css('color','white');
-				}
-
-        //final result trial B
-        var x2 = parseInt($("#lrf_2").val());
-				var y2 = parseInt($("#lrfd").val());
-        var Pass2 = "ADEQUATE";
-        var Fail2 = "INADEQUATE";
-
-				var Fresult2;
-
-				if (x2 > y2) {
-					Fresult2 =  $('#result2').val(Pass2);
-          $('#result2').css('background-color','green');
-          $('#result2').css('color','white');
-				} else {
-					Fresult2 =  $('#result2').val(Fail2);
-          $('#result2').css('background-color','red');
-          $('#result2').css('color','white');
-				}
-        
-        //final result trial C
-        var x3 = parseInt($("#lrf_3").val());
-				var y3 = parseInt($("#lrfd").val());
-        var Pass3 = "ADEQUATE";
-        var Fail3 = "INADEQUATE";
-
-				var Fresult3;
-
-				if (x3 > y3) {
-					Fresult3 =  $('#result3').val(Pass3);
-          $('#result3').css('background-color','green');
-          $('#result3').css('color','white');
-				} else {
-					Fresult3 =  $('#result3').val(Fail3);
-          $('#result3').css('background-color','red');
-          $('#result3').css('color','white');
-				}
-      //solving Ag for critical buckling stress
-      
-      var numerator = RS * 1000;
-      var denominator = 0.9 * newFcr;
-      var Ag = numerator / denominator;
-      var newAg = Ag.toFixed(2)
-      $('#Ag').val(newAg);
-
-      getTrialSec(newAg);
-
-
+    function PU(PLL, PDL) {
+      // Solving Pu
+      var PU = (1.2 * PDL) + (1.6 * PLL);
+      $('#Pu').val(PU.toFixed(2));
     }
 
-    // producing tester
-    function getTrialSec(DBSx) {
-      var Ag = DBSx;
+    function Fe(Klr) {
+      // Solving Fe
+      var Fe = (3.141592654 ** 2) * 200000 / (Klr ** 2);
+
+      return Fe;
+    }
+
+    function Fcr(CFy, Klr) {
+      // Solving Fcr
+      let condition = 4.71 * (Math.sqrt(200000 / CFy));
+      let Fe = $('#Fe').val();
+
+
+      if (Klr < condition) {
+        let Cond1 = (0.658 ** (CFy / Fe)) * CFy;
+        return Cond1;
+      } else {
+        let Cond2 = 0.877 * Fe;
+        return Cond2;
+      }
+    }
+
+    function Ag() {
+      let Pu = $('#Pu').val();
+      let Fcr = $('#Fcr').val();
+
+      let Ag = (Pu * 1000) / (0.90 * Fcr);
+      $('#Ag').val(Ag.toFixed(2));
+
+      Trial(Ag);
+    }
+
+    function Trial(Ag) {
+
       $.ajax({
         url: "column.php",
         type: "POST",
         data: {
           data: Ag,
-          AJAXLocator: "searchBeam",
+          AJAXLocator: "columnTrials",
         },
         dataType: 'json',
-        success: function (result) {
-          console.log(result);
-          // Fetching EDI
-          $('#BEdi1').val(result[0]["EDI_Std_Nomenclature"]);
-          $('#BEdi2').val(result[1]["EDI_Std_Nomenclature"]);
-          $('#BEdi3').val(result[2]["EDI_Std_Nomenclature"]);
+        success: function(result) {
+          var EnC = $('#EnC').val();
+          var Length = $('#Length').val() * 1000;
 
-          //Ag
-          $('#Ag1').val(result[0]["A"]);
-          $('#Ag2').val(result[1]["A"]);
-          $('#Ag3').val(result[2]["A"]);
-          //rx
-          $('#Rx1').val(result[0]["rx"]);
-          $('#Rx2').val(result[1]["rx"]);
-          $('#Rx3').val(result[2]["rx"]);
-          //ry
-          $('#Ry1').val(result[0]["ry"]);
-          $('#Ry2').val(result[1]["ry"]);
-          $('#Ry3').val(result[2]["ry"]);
 
+          for (x = 0; x < 3; x++) {
+            $('#Edi' + (x + 1)).val(result[x]["EDI_Std_Nomenclature"]);
+            $('#TAg' + (x + 1)).val(result[x]["A"]);
+            $('#Ry' + (x + 1)).val(result[x]["ry"]);
+            $('#Rx' + (x + 1)).val(result[x]["rx"]);
+          }
+
+          CkAdequancy(EnC, Length);
+          ECBS();
+          FBS();
+          NCS();
         }
       });
+
+      let Ry = [];
+      let Rx = [];
+      let xAxis = [];
+      let yAxis = [];
+
+      function CkAdequancy(EnC, Length) {
+        for (x = 0; x < 3; x++) {
+          Rx[x] = $('#Rx' + (x + 1)).val();
+          Ry[x] = $('#Ry' + (x + 1)).val();
+
+          xAxis[x] = (EnC * Length) / Rx[x];
+          yAxis[x] = (EnC * Length) / Ry[x];
+
+          // console.log('x',xAxis[x], ' y',yAxis[x]);
+          $('#XAx' + (x + 1)).val(xAxis[x].toFixed(2));
+          $('#YAx' + (x + 1)).val(yAxis[x].toFixed(2));
+        }
+      }
+
+      // Elastic Critical Buckling Stress
+      let Xax = [];
+      let Yax = [];
+      let Fex = [];
+      let Fey = [];
+
+      function ECBS() {
+        for (x = 0; x < 3; x++) {
+          Xax[x] = $('#XAx' + (x + 1)).val();
+          Yax[x] = $('#YAx' + (x + 1)).val();
+          Fex[x] = Fe(Xax[x]);
+          Fey[x] = Fe(Yax[x]);
+
+          if (Xax[x] > Yax[x]) {
+            $('#Fe' + (x + 1)).val(Fex[x]);
+          } else {
+            $('#Fe' + (x + 1)).val(Fey[x]);
+          }
+        }
+
+
+      }
+
+      let FeFBS = [];
+      let FcrF = [];
+
+
+      function FBS() {
+        for (x = 0; x < 3; x++) {
+          let CFyFBS = $('#CFy').val();
+          FeFBS[x] = $('#Fe' + (x + 1)).val();
+          var Klr = $('#Klr').val();
+          // Solving Fcr
+          let condition = 4.71 * (Math.sqrt(200000 / CFyFBS));
+
+          let Cond1 = [];
+          let Cond2 = [];
+
+          if (Klr < condition) {
+            Cond1[x] = (0.658 ** (CFyFBS / FeFBS[x])) * CFyFBS;
+            $('#Fcr' + (x + 1)).val(Cond1[x]);
+          } else {
+            Cond2[x] = 0.877 * FeFBS[x];
+            $('#Fcr' + (x + 1)).val(Cond2[x]);
+          }
+        }
+      }
+      let FcrNCS = [];
+      let PnNCS = [];
+      let OPnNCS = [];
+      let OPn = [];
+      let AgN = [];
+
+      function NCS() {
+        for (x = 0; x < 3; x++) {
+          FcrNCS[x] = $('#Fcr' + (x + 1)).val();
+          AgN[x] = $('#TAg' + (x + 1)).val();
+
+          PnNCS[x] = (FcrNCS[x] * AgN[x]) / 1000;
+          $('#Pn' + (x + 1)).val(PnNCS[x]);
+
+          OPn[x] = $('#Pn' + (x + 1)).val();
+          OPnNCS[x] = 0.9 * OPn[x];
+          $('#OPn' + (x + 1)).val(OPnNCS[x]);
+
+          let PuNCS = $('#Pu').val();
+
+          if(parseInt(OPnNCS[x]) > parseInt(PuNCS)){
+            $('#Res' + (x + 1)).val('Adequate').removeClass('bg-danger').addClass('bg-success text-light');
+          }else{
+            $('#Res' + (x + 1)).val('Inadequate').removeClass('bg-success').addClass('bg-danger text-light');
+          }
+          
+        }
+      }
+
     }
   </script>
 
