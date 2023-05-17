@@ -105,7 +105,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
         <nav class="sidebar-nav">
           <ul id="sidebarnav" class="pt-4">
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="home.php" aria-expanded="false">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
                 <img src="assets/images/icon/home.png" alt="" class="px-2"><span class="hide-menu">Home</span>
               </a>
             </li>
@@ -120,8 +120,8 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="column.php" aria-expanded="false">
-                <img src="assets/images/icon/deck.png" alt="" class="px-2"><span class="hide-menu">Steel Decking</span>
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="connectiondetails.php" aria-expanded="false">
+                <img src="assets/images/icon/deck.png" alt="" class="px-2"><span class="hide-menu">Connection Details</span>
               </a>
             </li>
           </ul>
@@ -265,7 +265,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                         <a class="nav-link text-dark active" href="#" id="bvisuals">Visuals</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link text-dark" href="#" id="bother">Other Results</a>
+                        <a class="nav-link text-dark" href="#" id="bother">Outcome</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link text-dark" href="#" id="bhistory">History</a>
@@ -279,12 +279,12 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     <div class="row">
                       <!-- Visuals Tab -->
                       <div class="col-12 overflow-auto" id="visuals" style="max-height:82vh;">
-                        <img src="assets/images/fixed_fixedUniformDistributedLoad.jpg" width="100%" alt="">
-                        <img src="assets/images/fixed_fixedCenterLoad.jpg" width="100%" alt="">
-                        <img src="assets/images/cantileverUniformDistributedLoad.jpg" width="100%" alt="">
-                        <img src="assets/images/cantileverEndLoad.jpg" width="100%" alt="">
-                        <img src="assets/images/simplySupportedCenterLoad.jpg" width="100%" alt="">
-                        <img src="assets/images/simplySupportedUniformDistributedLoad.jpg" width="100%" alt="">
+                        <img src="assets/images/1.jpg" width="100%" alt="">
+                        <img src="assets/images/2.jpg" width="100%" alt="">
+                        <img src="assets/images/3.jpg" width="100%" alt="">
+                        <img src="assets/images/4.jpg" width="100%" alt="">
+                        <img src="assets/images/5.jpg" width="100%" alt="">
+                        <img src="assets/images/6.jpg" width="100%" alt="">
                       </div>
                       <!-- Other Results Tab -->
                       <div class="col-12 d-none" id="otherResults">
@@ -1478,8 +1478,18 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                           <div class="col form-group">
                                             <label for="">@Yielding</label>
                                             <div class="input-group mb-3">
-                                              <span class="input-group-text">Mn</span>
+                                              <span class="input-group-text">Mp</span>
                                               <input type="text" class="form-control" readonly id="AtYielding4">
+                                              <span class="input-group-text">kNm</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row" id="flb-col">
+                                          <div class="col form-group">
+                                            <label for="">FLB</label>
+                                            <div class="input-group mb-3">
+                                              <span class="input-group-text">Mn</span>
+                                              <input type="text" class="form-control" readonly id="mn4">
                                               <span class="input-group-text">kNm</span>
                                             </div>
                                           </div>
@@ -1489,7 +1499,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                             <label for="">LTB</label>
                                             <div class="input-group mb-3">
                                               <span class="input-group-text">Lb</span>
-                                              <input type="text" class="form-control" readonly id="lb4">
+                                              <input type="text" class="form-control" value="0" readonly id="lb4">
                                             </div>
                                             <div class="input-group mb-3">
                                               <span class="input-group-text">Lp</span>
@@ -2230,29 +2240,43 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               }
 
               // Yielding
-              let mAtYielding = (BFy * (mTzx * (Math.pow(10, 3)))) / 1000000;
+              let mAtYielding = (BFy * (mTzx * 1000)) / 1000000;
               $('#AtYielding4').val(mAtYielding.toFixed(3));
+              //[ 603.75 – (603.75 -0 .7(524.4)) (9.4954−9.149324.0771−9.1493)]
 
-              // Check Resisting Moment
-              let mAtResisting = (mTtsx * 1000) * (BFy * 0.66) / 1000000;
-              $('#AtResisting4').val(mAtResisting.toFixed(3));
-              $('#AtResistingComp4').val(mAtResisting.toFixed(3) + " > " + $('#BM').val());
+              let mn = 603.75 - (603.75 - (0.7 * 524.4)) * ((9.4954-9.1493)/(24.0771-9.1493))
+              $('#mn4').val(mn.toFixed(3));
 
-              if (parseFloat(mAtResisting.toFixed(3)) > parseFloat($('#BM').val())) {
-                $('#AtResistingAns4').val("SAFE").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
-              } else {
-                $('#AtResistingAns4').val("NOT-SAFE").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
-              }
+              // // Check Resisting Moment
+              // let mAtResisting = (mTtsx * 1000) * (BFy * 0.66) / 1000000;
+              // $('#AtResisting4').val(mAtResisting.toFixed(3));
+              // $('#AtResistingComp4').val(mAtResisting.toFixed(3) + " > " + $('#BM').val());
 
-              // Bending Moment Capacity
-              let mAtBending = 0.90 * mAtYielding.toFixed(3);
-              $('#AtBending4').val(mAtBending.toFixed(3));
-              $('#AtBendingComp4').val(mAtBending.toFixed(3) + " > " + $('#BM').val());
+              // if (parseFloat(mAtResisting.toFixed(3)) > parseFloat($('#BM').val())) {
+              //   $('#AtResistingAns4').val("SAFE").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
+              // } else {
+              //   $('#AtResistingAns4').val("NOT-SAFE").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
+              // }
 
-              if (parseFloat(mAtBending.toFixed(3)) > parseFloat($('#BM').val())) {
-                $('#AtBendingAns4').val("SAFE").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
-              } else {
-                $('#AtBendingAns4').val("NOT-SAFE").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
+              // // Bending Moment Capacity
+              // let mAtBending = 0.90 * mAtYielding.toFixed(3);
+              // $('#AtBending4').val(mAtBending.toFixed(3));
+              // $('#AtBendingComp4').val(mAtBending.toFixed(3) + " > " + $('#BM').val());
+
+              // if (parseFloat(mAtBending.toFixed(3)) > parseFloat($('#BM').val())) {
+              //   $('#AtBendingAns4').val("SAFE").removeClass('bg-danger text-light border border-secondary').addClass('bg-success text-light border border-secondary');
+              // } else {
+              //   $('#AtBendingAns4').val("NOT-SAFE").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
+              // }
+
+              //LTB
+              $('#unLength').on('keyup', function(){
+                $('#lb4').val($('#unLength').val());
+
+              });
+
+              if($('#lb4').val() == 0){
+                
               }
             }
           });

@@ -142,13 +142,13 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
       <div class="page-breadcrumb">
         <div class="row">
           <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Column</h4>
+            <h4 class="page-title">Connection Details</h4>
             <div class="ms-auto text-end">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
                   <li class="breadcrumb-item active" aria-current="page">
-                    Column
+                    Connection Details
                   </li>
                 </ol>
               </nav>
@@ -167,16 +167,16 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               <div class="col-lg-6">
                 <div class="row">
                   <div class="col-lg-12">
-                    <h3 class="mt-3 mt-3 mb-3 d-inline">Long Column</h3>
+                    <h3 class="mt-3 mt-3 mb-3 d-inline">Connection Details</h3>
                     <!-- <button type="button" id="LocalStorage">Test local storage</button> -->
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-12 form-group">
-                    <label for="">End Condition:</label>
+                    <label for="">Electrode:</label>
                     <div class="input-group mb-3">
                       <select name="" id="EnC" class="form-control">
-                        <option value="">Select End Condition...</option>
+                        <option value="">Select Electrode...</option>
                         <option value="0.65">0.65</option>
                         <option value="0.80">0.80</option>
                         <option value="1.2">1.2</option>
@@ -190,7 +190,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 </div>
                 <div class="row">
                   <div class="col-12 form-group">
-                    <label for="">PLL:</label>
+                    <label for="">Size of Weld:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="PLL">
                       <span class="input-group-text">Kn/m</span>
@@ -199,7 +199,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 </div>
                 <div class="row">
                   <div class="col-12 form-group">
-                    <label for="">PDL:</label>
+                    <label for="">Length of Welded Area:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="PDL">
                       <span class="input-group-text">Kn/m</span>
@@ -208,51 +208,11 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 </div>
                 <div class="row">
                   <div class="col-12 form-group">
-                    <label for="">Pu:</label>
+                    <label for="">Connecting Members:</label>
                     <div class="input-group mb-3">
-                      <input type="number" class="form-control" id="Pu" disabled>
+                      <input type="number" class="form-control" id="Pu">
                       <span class="input-group-text">Kn</span>
                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 form-group">
-                    <label for="">KL/r:</label>
-                    <div class="input-group mb-3">
-                      <input type="number" class="form-control" id="Klr">
-                    </div>
-                    <label for="" class="text-info"> Note: Recommended value for KL/r is (40- 60) <200 </label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 form-group">
-                    <label for="">Fy:</label>
-                    <div class="input-group mb-3">
-                      <input type="number" class="form-control" id="CFy">
-                      <span class="input-group-text">Kn/m</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 form-group">
-                    <label for="">Length:</label>
-                    <div class="input-group mb-3">
-                      <input type="number" class="form-control" id="Length">
-                      <span class="input-group-text">m</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 form-group">
-                    <label for="">Result:</label>
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="Result" disabled>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 form-group">
-                    <button class="btn btn-info form-control">Save</button>
                   </div>
                 </div>
               </div>
@@ -275,9 +235,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     <div class="row">
                       <!-- Visuals Tab -->
                       <div class="col-12 overflow-auto" id="visuals" style="max-height:82vh;">
-                        <img src="assets/images/7.png" width="100%" alt="">
-                        <img src="assets/images/8.png" width="100%" alt="">
-                        <img src="assets/images/9.png" width="100%" alt="">
+                        <img src="assets/images/13.jpg" width="100%" alt="">
+                        <img src="assets/images/14.jpg" width="100%" alt="">
+                        <img src="assets/images/15.jpg" width="100%" alt="">
                       </div>
                       <!-- Other Results Tab -->
                       <div class="col-12 d-none" id="otherResults">

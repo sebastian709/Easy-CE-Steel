@@ -13,6 +13,42 @@
   <link href="dist/css/style.min.css" rel="stylesheet" />
 </head>
 
+<style>
+  @media (max-width: 767px) {
+    .carousel-inner .carousel-item>div {
+      display: none;
+    }
+
+    .carousel-inner .carousel-item>div:first-child {
+      display: block;
+    }
+  }
+
+  .carousel-inner .carousel-item.active,
+  .carousel-inner .carousel-item-next,
+  .carousel-inner .carousel-item-prev {
+    display: flex;
+  }
+
+  /* medium and up screens */
+  @media (min-width: 768px) {
+
+    .carousel-inner .carousel-item-end.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(25%);
+    }
+
+    .carousel-inner .carousel-item-start.active,
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-25%);
+    }
+  }
+
+  .carousel-inner .carousel-item-end,
+  .carousel-inner .carousel-item-start {
+    transform: translateX(0);
+  }
+</style>
 
 <body>
   <div class="preloader">
@@ -76,12 +112,22 @@
           <ul id="sidebarnav" class="pt-4">
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
-                <img src="assets/images/icon/enter.png" alt="" class="px-2"><span class="hide-menu">Login</span>
+                <img src="assets/images/icon/home.png" alt="" class="px-2"><span class="hide-menu">Home</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="register.php" aria-expanded="false">
-                <img src="assets/images/icon/registered.png" alt="" class="px-2"><span class="hide-menu">Register</span>
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="beam.php" aria-expanded="false">
+                <img src="assets/images/icon/steel.png" alt="" class="px-2"><span class="hide-menu">Beam</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="column.php" aria-expanded="false">
+                <img src="assets/images/icon/columnss.png" alt="" class="px-2"><span class="hide-menu">Column</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="connectiondetails.php" aria-expanded="false">
+                <img src="assets/images/icon/deck.png" alt="" class="px-2"><span class="hide-menu">Connection Details</span>
               </a>
             </li>
           </ul>
@@ -95,10 +141,15 @@
       <div class="page-breadcrumb">
         <div class="row">
           <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Login</h4>
+            <h4 class="page-title">Home</h4>
             <div class="ms-auto text-end">
               <nav aria-label="breadcrumb">
-
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <!-- <li class="breadcrumb-item active" aria-current="page">
+                    Library
+                  </li> -->
+                </ol>
               </nav>
             </div>
           </div>
@@ -107,8 +158,184 @@
       <!-- Container fluid  -->
       <div class="container-fluid">
         <div class="row">
-          <div class="col">
-
+          <div class="col card">
+            <div class="row">
+              <div class="col mt-3">
+                <h3>Beam</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="container text-center my-3">
+                  <div class="row mx-auto my-auto justify-content-center">
+                    <div id="beam" class="carousel slide beam-carousel" data-bs-ride="carousel">
+                      <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active beam-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/1.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item beam-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/2.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item beam-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/3.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item beam-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/4.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item beam-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/5.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item beam-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/6.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="carousel-control-prev bg-transparent w-aut" href="#beam" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      </a>
+                      <a class="carousel-control-next bg-transparent w-aut" href="#beam" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h3>Column</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="container text-center my-3">
+                  <div class="row mx-auto my-auto justify-content-center">
+                    <div id="column" class="carousel slide column-carousel" data-bs-ride="carousel">
+                      <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active column-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/7.png" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item column-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/8.png" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item column-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/9.png" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="carousel-control-prev bg-transparent w-aut" href="#column" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      </a>
+                      <a class="carousel-control-next bg-transparent w-aut" href="#column" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h3>Connection Details</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="container text-center my-3">
+                  <div class="row mx-auto my-auto justify-content-center">
+                    <div id="condi" class="carousel slide condi-carousel" data-bs-ride="carousel">
+                      <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active condi-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/13.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item condi-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/14.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item condi-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/15.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="carousel-control-prev bg-transparent w-aut" href="#condi" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      </a>
+                      <a class="carousel-control-next bg-transparent w-aut" href="#condi" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -134,12 +361,62 @@
   <script src="dist/js/pages/chart/chart-page-init.js"></script>
 
   <script>
+    let beam = document.querySelectorAll('.beam-carousel .beam-item')
+
+    beam.forEach((el) => {
+      const minPerSlide = 4
+      let next = el.nextElementSibling
+      for (var i = 1; i < minPerSlide; i++) {
+        if (!next) {
+          // wrap carousel by using first child
+          next = beam[0]
+        }
+        let cloneChild = next.cloneNode(true)
+        el.appendChild(cloneChild.children[0])
+        next = next.nextElementSibling
+      }
+    })
+
+    let column = document.querySelectorAll('.column-carousel .column-item')
+
+    column.forEach((el) => {
+      const minPerSlide = 3
+      let next = el.nextElementSibling
+      for (var i = 1; i < minPerSlide; i++) {
+        if (!next) {
+          // wrap carousel by using first child
+          next = column[0]
+        }
+        let cloneChild = next.cloneNode(true)
+        el.appendChild(cloneChild.children[0])
+        next = next.nextElementSibling
+      }
+    })
+
+    let condi = document.querySelectorAll('.condi-carousel .condi-item')
+
+    condi.forEach((el) => {
+      const minPerSlide = 3
+      let next = el.nextElementSibling
+      for (var i = 1; i < minPerSlide; i++) {
+        if (!next) {
+          // wrap carousel by using first child
+          next = condi[0]
+        }
+        let cloneChild = next.cloneNode(true)
+        el.appendChild(cloneChild.children[0])
+        next = next.nextElementSibling
+      }
+    })
     $(document).ready(function() {
       $('body').find('img[src$="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"]').parent().closest('a').closest('div').remove();
     });
     $(document).ready(function() {
 
-
+      $('.carousel-control-next.bg-transparent.w-aut').css({
+        'background-image': 'linear-gradient(to right, rgba(40,40,40,0) , rgba(40,40,40,0.5))'
+      });
+      $('.carousel-control-prev.bg-transparent.w-aut').css('background-image', 'linear-gradient(to left, rgba(40,40,40,0) , rgba(40,40,40,0.5))');
       var data = localStorage.getItem("palette");
       var parse = JSON.parse(data);
       var array = $.map(parse, function(value, index) {
