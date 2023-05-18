@@ -251,7 +251,7 @@
                           <div class="col-md-3">
                             <div class="card">
                               <div class="card-img">
-                                <img src="assets/images/7.png" class="img-fluid">
+                                <img src="assets/images/7.jpg" class="img-fluid">
                               </div>
                             </div>
                           </div>
@@ -260,7 +260,7 @@
                           <div class="col-md-3">
                             <div class="card">
                               <div class="card-img">
-                                <img src="assets/images/8.png" class="img-fluid">
+                                <img src="assets/images/8.jpg" class="img-fluid">
                               </div>
                             </div>
                           </div>
@@ -269,7 +269,34 @@
                           <div class="col-md-3">
                             <div class="card">
                               <div class="card-img">
-                                <img src="assets/images/9.png" class="img-fluid">
+                                <img src="assets/images/9.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item column-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/10.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item column-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/11.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item column-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/12.jpg" class="img-fluid">
                               </div>
                             </div>
                           </div>
@@ -336,6 +363,119 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col">
+                <h3>Nscp 2015</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="container-fluid text-center my-3"">
+                  <div class="row mx-auto my-auto justify-content-center">
+                    <div id="nscp" class="carousel slide nscp-carousel" data-bs-ride="carousel">
+                      <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active nscp-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U1.jpg" class="img-fluid" style="display:cover;">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item nscp-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U2.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item nscp-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U3.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item nscp-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U4.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item nscp-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U5.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item nscp-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U6.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item nscp-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U7.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item nscp-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U8.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item nscp-item">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U9.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item nscp-item">
+                          <div class="col-md-4">
+                            <div class="card">
+                              <div class="card-img">
+                                <img src="assets/images/U10.jpg" class="img-fluid">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="carousel-control-prev bg-transparent w-aut" href="#nscp" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      </a>
+                      <a class="carousel-control-next bg-transparent w-aut" href="#nscp" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -380,7 +520,7 @@
     let column = document.querySelectorAll('.column-carousel .column-item')
 
     column.forEach((el) => {
-      const minPerSlide = 3
+      const minPerSlide = 4
       let next = el.nextElementSibling
       for (var i = 1; i < minPerSlide; i++) {
         if (!next) {
@@ -402,6 +542,22 @@
         if (!next) {
           // wrap carousel by using first child
           next = condi[0]
+        }
+        let cloneChild = next.cloneNode(true)
+        el.appendChild(cloneChild.children[0])
+        next = next.nextElementSibling
+      }
+    })
+
+    let nscp = document.querySelectorAll('.nscp-carousel .nscp-item')
+
+    nscp.forEach((el) => {
+      const minPerSlide = 3
+      let next = el.nextElementSibling
+      for (var i = 1; i < minPerSlide; i++) {
+        if (!next) {
+          // wrap carousel by using first child
+          next = nscp[0]
         }
         let cloneChild = next.cloneNode(true)
         el.appendChild(cloneChild.children[0])

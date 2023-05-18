@@ -166,7 +166,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
             <div class="row">
               <div class="col-lg-6">
                 <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-12 mb-3">
                     <h3 class="mt-3 mt-3 mb-3 d-inline">Long Column</h3>
                     <!-- <button type="button" id="LocalStorage">Test local storage</button> -->
                   </div>
@@ -244,40 +244,44 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 </div>
                 <div class="row">
                   <div class="col-12 form-group">
-                    <label for="">Result:</label>
+                    <label for="" class="font-weight-bold"><b> Result:</b></label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="Result" disabled>
+                      <span class="input-group-text bg-dark text-light">EDI</span>
+                      <input type="text" class="form-control bg-dark text-light" id="Result">
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-12 form-group">
                     <button class="btn btn-info form-control">Save</button>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div class="col-lg-6">
                 <div class="row" style="border:1px solid #DEE2E6; border-radius: 5px 5px 0px 0px;">
                   <div class="col-12" style="border-bottom:1px solid #DEE2E6;">
                     <ul class="nav nav-tabs pt-2">
                       <li class="nav-item">
-                        <a class="nav-link text-dark active" href="#" id="bvisuals">Visuals</a>
+                        <a class="nav-link text-dark active" href="#" id="bvisuals">Figures</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link text-dark" href="#" id="bother">Outcome</a>
                       </li>
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                         <a class="nav-link text-dark" href="#" id="bhistory">History</a>
-                      </li>
+                      </li> -->
                     </ul>
                   </div>
-                  <div class="col-12 bg-light py-2" style="min-height:500px;">
+                  <div class="col-12 bg-light py-2 overflow-auto" style="min-height:70vh; max-height:70vh; ">
                     <div class="row">
                       <!-- Visuals Tab -->
-                      <div class="col-12 overflow-auto" id="visuals" style="max-height:82vh;">
-                        <img src="assets/images/7.png" width="100%" alt="">
-                        <img src="assets/images/8.png" width="100%" alt="">
-                        <img src="assets/images/9.png" width="100%" alt="">
+                      <div class="col-12" id="visuals" style="max-height:70vh;">
+                        <img src="assets/images/7.jpg" width="100%" alt="">
+                        <img src="assets/images/8.jpg" width="100%" alt="">
+                        <img src="assets/images/9.jpg" width="100%" alt="">
+                        <img src="assets/images/10.jpg" width="100%" alt="">
+                        <img src="assets/images/11.jpg" width="100%" alt="">
+                        <img src="assets/images/12.jpg" width="100%" alt="">
                       </div>
                       <!-- Other Results Tab -->
                       <div class="col-12 d-none" id="otherResults">
