@@ -1363,9 +1363,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                           <div class="col form-group">
                                             <label for="">@Yielding</label>
                                             <div class="input-group mb-3">
-                                              <span class="input-group-text">Mp</span>
                                               <input type="text" class="form-control" readonly id="AtYielding2">
-                                              <span class="input-group-text">kNm</span>
                                             </div>
                                           </div>
                                         </div>
@@ -1373,9 +1371,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                           <div class="col form-group">
                                             <label for="">FLB</label>
                                             <div class="input-group mb-3">
-                                              <span class="input-group-text">Mn</span>
                                               <input type="text" class="form-control" readonly id="mn2">
-                                              <span class="input-group-text">kNm</span>
                                             </div>
                                           </div>
                                         </div>
@@ -1515,9 +1511,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                           <div class="col form-group">
                                             <label for="">@Yielding</label>
                                             <div class="input-group mb-3">
-                                              <span class="input-group-text">Mp</span>
                                               <input type="text" class="form-control" readonly id="AtYielding3">
-                                              <span class="input-group-text">kNm</span>
                                             </div>
                                           </div>
                                         </div>
@@ -1525,9 +1519,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                           <div class="col form-group">
                                             <label for="">FLB</label>
                                             <div class="input-group mb-3">
-                                              <span class="input-group-text">Mn</span>
                                               <input type="text" class="form-control" readonly id="mn3">
-                                              <span class="input-group-text">kNm</span>
                                             </div>
                                           </div>
                                         </div>
