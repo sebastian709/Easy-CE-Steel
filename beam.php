@@ -1196,24 +1196,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">@Yielding</label>
-                                            <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="AtYielding1">
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row" id="flb-col">
-                                          <div class="col form-group">
-                                            <label for="">FLB</label>
-                                            <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="mn1">
-                                              <span class="input-group-text">kNm</span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col form-group">
-                                            <label for="">LTB</label>
+                                            <label for="">Result support for LTB</label>
                                             <div class="input-group mb-3">
                                               <span class="input-group-text">Lb</span>
                                               <input type="text" class="form-control" value="0" readonly id="lb1">
@@ -1226,9 +1209,37 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                               <span class="input-group-text">Lr</span>
                                               <input type="text" class="form-control" value="0" readonly id="lr1">
                                             </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">@Yielding</label>
                                             <div class="input-group mb-3">
-                                              <span class="input-group-text">LTB</span>
+                                              <input type="text" class="form-control" readonly id="AtYielding1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row" id="flb-col">
+                                          <div class="col form-group">
+                                            <label for="">FLB</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="mn1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row" id="flb-col">
+                                          <div class="col form-group">
+                                            <label for="">LTB</label>
+                                            <div class="input-group mb-3">
                                               <input type="text" class="form-control" value="0" readonly id="ltb1">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Least Governs</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="lg1">
                                             </div>
                                           </div>
                                         </div>
@@ -1333,24 +1344,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">@Yielding</label>
-                                            <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="AtYielding2">
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row" id="flb-col">
-                                          <div class="col form-group">
-                                            <label for="">FLB</label>
-                                            <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="mn2">
-                                              <span class="input-group-text">kNm</span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col form-group">
-                                            <label for="">LTB</label>
+                                            <label for="">Result support for LTB</label>
                                             <div class="input-group mb-3">
                                               <span class="input-group-text">Lb</span>
                                               <input type="text" class="form-control" value="0" readonly id="lb2">
@@ -1363,9 +1357,41 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                               <span class="input-group-text">Lr</span>
                                               <input type="text" class="form-control" value="0" readonly id="lr2">
                                             </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">@Yielding</label>
                                             <div class="input-group mb-3">
-                                              <span class="input-group-text">LTB</span>
+                                              <span class="input-group-text">Mp</span>
+                                              <input type="text" class="form-control" readonly id="AtYielding2">
+                                              <span class="input-group-text">kNm</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row" id="flb-col">
+                                          <div class="col form-group">
+                                            <label for="">FLB</label>
+                                            <div class="input-group mb-3">
+                                              <span class="input-group-text">Mn</span>
+                                              <input type="text" class="form-control" readonly id="mn2">
+                                              <span class="input-group-text">kNm</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row" id="flb-col">
+                                          <div class="col form-group">
+                                            <label for="">LTB</label>
+                                            <div class="input-group mb-3">
                                               <input type="text" class="form-control" value="0" readonly id="ltb2">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Least Governs</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="lg2">
                                             </div>
                                           </div>
                                         </div>
@@ -1470,24 +1496,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                         </div>
                                         <div class="row">
                                           <div class="col form-group">
-                                            <label for="">@Yielding</label>
-                                            <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="AtYielding3">
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row" id="flb-col">
-                                          <div class="col form-group">
-                                            <label for="">FLB</label>
-                                            <div class="input-group mb-3">
-                                              <input type="text" class="form-control" readonly id="mn3">
-                                              <span class="input-group-text">kNm</span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col form-group">
-                                            <label for="">LTB</label>
+                                            <label for="">Result support for LTB</label>
                                             <div class="input-group mb-3">
                                               <span class="input-group-text">Lb</span>
                                               <input type="text" class="form-control" value="0" readonly id="lb3">
@@ -1500,9 +1509,41 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                               <span class="input-group-text">Lr</span>
                                               <input type="text" class="form-control" value="0" readonly id="lr3">
                                             </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">@Yielding</label>
                                             <div class="input-group mb-3">
-                                              <span class="input-group-text">LTB</span>
+                                              <span class="input-group-text">Mp</span>
+                                              <input type="text" class="form-control" readonly id="AtYielding3">
+                                              <span class="input-group-text">kNm</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row" id="flb-col">
+                                          <div class="col form-group">
+                                            <label for="">FLB</label>
+                                            <div class="input-group mb-3">
+                                              <span class="input-group-text">Mn</span>
+                                              <input type="text" class="form-control" readonly id="mn3">
+                                              <span class="input-group-text">kNm</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row" id="flb-col">
+                                          <div class="col form-group">
+                                            <label for="">LTB</label>
+                                            <div class="input-group mb-3">
                                               <input type="text" class="form-control" value="0" readonly id="ltb3">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col form-group">
+                                            <label for="">Least Governs</label>
+                                            <div class="input-group mb-3">
+                                              <input type="text" class="form-control" readonly id="lg3">
                                             </div>
                                           </div>
                                         </div>
@@ -2309,18 +2350,17 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               var AtResisting = [];
               var AtBending = [];
 
-              let fa1 = [];
-              let fap1 = [];
-              let far1 = [];
-              let fmp1 = [];
-              let fbsx1 = [];
-              let fbfy1 = [];
-              let ffysx = [];
-              let fmn = [];
+              let ffa1 = [];
+              let ffap1 = [];
+              let ffar1 = [];
+              let ffmp1 = [];
+              let ffbsx1 = [];
+              let ffbfy1 = [];
+              let fffysx = [];
+
+              let fvalflange = [];
               let flpp = [];
               let fvry = [];
-
-
 
               let flrts = [];
               let flfy = [];
@@ -2332,18 +2372,43 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               let fllb = [];
               let fllc = [];
               let flld = [];
-              let ftotal = [];
-              let fvalflange = [];
 
-              let flayiel = [];
-              let flaflb = [];
-              let flaltb = [];
-              let flamu = [];
+              let ftotal = [];
 
               let flalp = [];
               let flalb = [];
               let flalr = [];
+
+              let flayiel = [];
+
+              let ftotn_array = [];
+              let flamin = [];
+
               let fmall = [];
+              let flamu = [];
+
+
+              let fctmp = [];
+              let fctfy = [];
+              let fctsx = [];
+              let fctlb = [];
+              let fctlp = [];
+              let fctlr = [];
+
+              let fconditionss = [];
+              let flaltb = [];
+
+
+              let flbbb = [];
+              let fjccc = [];
+              let fsxxx = [];
+              let flhoo = [];
+              let frtss = [];
+
+              let faas = [];
+              let fbbs = [];
+              let ftotalsss = [];
+
 
               for (var i = 0; i < 3; i++) {
                 Tbf[i] = result[i]["bf"];
@@ -2405,42 +2470,31 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   $('#AtBendingAns' + (i + 1)).val("NOT-SAFE").removeClass('bg-success text-light border border-secondary').addClass('bg-danger text-light border border-secondary');
                 }
 
-                fa1[i] = $('#AtFlange' + (i + 1)).val();
-                fap1[i] = $('#LambFlangeP' + (i + 1)).val();
-                far1[i] = $('#LambFlangeR' + (i + 1)).val();
-                fmp1[i] = $('#AtYielding' + (i + 1)).val();
-                fbsx1[i] = $('#BSx').val();
-                fbfy1[i] = $('#BFy').val();
-                ffysx[i] = (fbfy1[i] * (fbsx1[i] * 1000)) / 1000000;
+                ffa1[i] = $('#AtFlange' + (i + 1)).val();
+                ffap1[i] = $('#LambFlangeP' + (i + 1)).val();
+                ffar1[i] = $('#LambFlangeR' + (i + 1)).val();
+                ffmp1[i] = $('#AtYielding4' + (i + 1)).val();
+                ffbsx1[i] = $('#BSx').val();
+                ffbfy1[i] = $('#BFy').val();
+                fffysx[i] = (ffbfy1 * (ffbsx1 * 1000)) / 1000000;
                 fvry[i] = result[i]["ry"];
 
-                flrts[i] = result[i]["rts"];
-                flfy[i] = $('#BFy').val();
-                fljc[i] = result[i]["j"];
-                flsx[i] = $('#BSx').val();
-                flho[i] = result[i]["ho"];
 
                 fvalflange[i] = $('#AtFlangeAns' + (i + 1)).val();
 
-                flayiel[i] = $('#AtYielding' + (i + 1)).val();
-                flaflb[i] = $('#mn' + (i + 1)).val();
-                flaltb[i] = $('#ltb' + (i + 1)).val();
-                flamu[i] = $('#BM').val();
-
-                flalp[i] = parseFloat($('#lp' + (i + 1)).val());
-                flalb[i] = parseFloat($('#lb' + (i + 1)).val());
-                flalr[i] = parseFloat($('#lr' + (i + 1)).val());
-
-
-
-
-
                 if (fvalflange[i] == 'COMPACT') {
+                  console.log('compact');
                   $('#mn' + (i + 1)).val(0);
-                  // lp
-                  flpp[i] = (1.76 * (fvry[i])) * Math.sqrt(200000 / fbfy1[i]);
-                  $('#lp' + (i + 1)).val(flpp[i]);
-                  // lr
+                  //lp
+                  flpp[i] = (1.76 * (fvry[i])) * Math.sqrt(200000 / ffbfy1[i]);
+                  $('#lp' + (i + 1)).val(flpp[i].toFixed(3));
+                  //lr
+                  flrts[i] = result[i]["rts"];
+                  flfy[i] = $('#BFy').val();
+                  fljc[i] = result[i]["j"];
+                  flsx[i] = $('#BSx').val();
+                  flho[i] = result[i]["ho"];
+
                   flla[i] = (1.95 * flrts[i]);
                   fllb[i] = (200000) / (0.7 * flfy[i]);
                   fllc[i] = Math.sqrt(((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]));
@@ -2449,8 +2503,24 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   ftotal[i] = flla[i] * fllb[i] * fllc[i] * flld[i];
                   $('#lr' + (i + 1)).val(ftotal[i].toFixed(3));
 
+                  flalp[i] = parseFloat($('#lp' + (i + 1)).val());
+                  flalb[i] = parseFloat($('#lb' + (i + 1)).val());
+                  flalr[i] = parseFloat($('#lr' + (i + 1)).val());
+
                   if (flalp[i] > flalb[i]) {
-                    fmall[i] = 0.90 * flayiel[i];
+                    console.log('condition 1');
+
+                    flayiel[i] = parseFloat($('#AtYielding' + (i + 1)).val());
+                    // let laflb = parseFloat($('#mn4').val());
+                    // let laltb = parseFloat($('#ltb4').val());
+
+                    ftotn_array[i] = [flayiel[i]];
+                    flamin[i] = Math.min(...ftotn_array[i]);
+
+                    $('#lg' + (i + 1)).val(flamin[i]);
+
+                    fmall[i] = 0.90 * flamin[i];
+                    flamu[i] = $('#BM').val();
 
                     $('#Finmall' + (i + 1)).val(fmall[i]);
                     $('#Finmu' + (i + 1)).val(flamu[i]);
@@ -2459,22 +2529,85 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     } else {
                       $('#FinRes' + (i + 1)).val('NOT-SAFE').removeClass('bg-success text-light').addClass('bg-danger text-light');
                     }
-                  } else if (flalp[i] < flalb[i] && flalb[i] < flalr[i]) {
 
+                  } else if (flalp[i] < flalb[i] && flalb[i] < flalr[i]) {
+                    console.log('condition 2');
+                    fctmp[i] = $('#AtYielding' + (i + 1)).val();
+                    fctfy[i] = $('#BFy').val();
+                    fctsx[i] = $('#BSx').val();
+                    fctlb[i] = $('#lb' + (i + 1)).val();
+                    fctlp[i] = $('#lp' + (i + 1)).val();
+                    fctlr[i] = $('#lr' + (i + 1)).val();
+
+
+                    fconditionss[i] = 1 * (fctmp[i] - (fctmp[i] - (0.7 * (fctfy[i] * (fctsx[i] * 1000)) * (fctlb[i] - fctlp[i]) / (fctlr[i] - fctlp[i]))));
+
+                    $('#ltb' + (i + 1)).val(fconditionss[i]);
+
+                    flayiel[i] = parseFloat($('#AtYielding' + (i + 1)).val());
+
+                    flaltb[i] = parseFloat($('#ltb4').val());
+                    ftotn_array[i] = [flayiel[i], flaltb[i]];
+                    flamin[i] = Math.min(...ftotn_array[i]);
+
+                    $('#lg' + (i + 1)).val(flamin[i]);
+
+                    fmall[i] = 0.90 * flamin[i];
+                    flamu[i] = $('#BM').val();
+
+                    $('#Finmall' + (i + 1)).val(fmall[i]);
+                    $('#Finmu' + (i + 1)).val(flamu[i]);
+                    if (fmall[i] > flamu[i]) {
+                      $('#FinRes' + (i + 1)).val('SAFE').removeClass('bg-danger text-light').addClass('bg-success text-light');
+                    } else {
+                      $('#FinRes' + (i + 1)).val('NOT-SAFE').removeClass('bg-success text-light').addClass('bg-danger text-light');
+                    }
                   } else if (flalp[i] < flalb[i] && flalb[i] > flalr[i]) {
 
+                    flbbb[i] = $('#lb' + (i + 1)).val();
+                    fjccc[i] = result[i]["j"];
+                    fsxxx[i] = $('#BSx').val();
+                    flhoo[i] = result[i]["ho"];
+                    frtss[i] = result[i]["rts"];
+
+                    faas[i] = 1 * ((3.141592654 ** 2) * 200000) / ((flbbb[i] / frtss[i]) ** 2);
+                    fbbs[i] = Math.sqrt(1 + 0.078 * (jccc * (10 ** 3) * (1) / ((fsxxx[i] * (10 ** 3)) * flhoo[i]) * ((flbbb[i] / frtss[i]) ** 2)));
+                    ftotalsss[i] = faas[i] * fbbs[i];
+
+                    $('#ltb' + (i + 1)).val(ftotalsss[i]);
+
+                    flayiel[i] = parseFloat($('#AtYielding' + (i + 1)).val());
+                    flaltb[i] = parseFloat($('#ltb' + (i + 1)).val());
+
+                    ftotn_array[i] = [flayiel[i], flaltb[i]];
+                    flamin[i] = Math.min(...ftotn_array[i]);
+
+                    $('#lg' + (i + 1)).val(flamin[i]);
+
+                    fmall[i] = 0.90 * flamin[i];
+                    flamu[i] = $('#BM').val();
+
+                    $('#Finmall' + (i + 1)).val(fmall[i]);
+                    $('#Finmu' + (i + 1)).val(flamu[i]);
+                    if (fmall[i] > flamu[i]) {
+                      $('#FinRes' + (i + 1)).val('SAFE').removeClass('bg-danger text-light').addClass('bg-success text-light');
+                    } else {
+                      $('#FinRes' + (i + 1)).val('NOT-SAFE').removeClass('bg-success text-light').addClass('bg-danger text-light');
+                    }
                   }
-
                 } else if (fvalflange[i] == 'NON-COMPACT') {
-                  // flb
-                  fmn[i] = fmp1[i] - (fmp1[i] - (0.7 * (ffysx[i]))) * ((fa1[i] - fap1[i]) / (far1[i] - fap1[i]));
-                  $('#mn' + (i + 1)).val(fmn[i].toFixed(3));
+                  console.log('non-compact');
 
-                  // lp
-                  flpp[i] = (1.76 * (fvry[i])) * Math.sqrt(200000 / fbfy1[i]);
-                  $('#lp' + (i + 1)).val(flpp[i]);
+                  //lp
+                  flpp[i] = (1.76 * (fvry[i])) * Math.sqrt(200000 / ffbfy1[i]);
+                  $('#lp' + (i + 1)).val(flpp[i].toFixed(3));
+                  //lr
+                  flrts[i] = result[i]["rts"];
+                  flfy[i] = $('#BFy').val();
+                  fljc[i] = result[i]["j"];
+                  flsx[i] = $('#BSx').val();
+                  flho[i] = result[i]["ho"];
 
-                  // lr
                   flla[i] = (1.95 * flrts[i]);
                   fllb[i] = (200000) / (0.7 * flfy[i]);
                   fllc[i] = Math.sqrt(((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]));
@@ -2483,6 +2616,100 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   ftotal[i] = flla[i] * fllb[i] * fllc[i] * flld[i];
                   $('#lr' + (i + 1)).val(ftotal[i].toFixed(3));
 
+                  flalp[i] = parseFloat($('#lp' + (i + 1)).val());
+                  flalb[i] = parseFloat($('#lb' + (i + 1)).val());
+                  flalr[i] = parseFloat($('#lr' + (i + 1)).val());
+
+                  if (flalp[i] > flalb[i]) {
+                    console.log('condition 1');
+
+                    flayiel[i] = parseFloat($('#AtYielding4').val());
+                    // let laflb = parseFloat($('#mn4').val());
+                    // let laltb = parseFloat($('#ltb4').val());
+
+                    ftotn_array[i] = [flayiel[i]];
+                    flamin[i] = Math.min(...ftotn_array[i]);
+
+                    $('#lg' + (i + 1)).val(flamin[i]);
+
+                    fmall[i] = 0.90 * flamin[i];
+                    flamu[i] = $('#BM').val();
+
+                    $('#Finmall' + (i + 1)).val(fmall[i]);
+                    $('#Finmu' + (i + 1)).val(flamu[i]);
+                    if (fmall[i] > flamu[i]) {
+                      $('#FinRes' + (i + 1)).val('SAFE').removeClass('bg-danger text-light').addClass('bg-success text-light');
+                    } else {
+                      $('#FinRes' + (i + 1)).val('NOT-SAFE').removeClass('bg-success text-light').addClass('bg-danger text-light');
+                    }
+
+                  } else if (flalp[i] < flalb[i] && flalb[i] < flalr[i]) {
+                    console.log('condition 2');
+                    fctmp[i] = $('#AtYielding' + (i + 1)).val();
+                    fctfy[i] = $('#BFy').val();
+                    fctsx[i] = $('#BSx').val();
+                    fctlb[i] = $('#lb' + (i + 1)).val();
+                    fctlp[i] = $('#lp' + (i + 1)).val();
+                    fctlr[i] = $('#lr' + (i + 1)).val();
+
+
+                    fconditionss[i] = 1 * (fctmp[i] - (fctmp[i] - (0.7 * (fctfy[i] * (fctsx[i] * 1000)) * (fctlb[i] - fctlp[i]) / (fctlr[i] - fctlp[i]))));
+
+                    $('#ltb' + (i + 1)).val(fconditionss[i]);
+
+
+                    flayiel[i] = parseFloat($('#AtYielding' + (i + 1)).val());
+                    flaflb[i] = parseFloat($('#mn' + (i + 1)).val());
+                    flaltb[i] = parseFloat($('#ltb' + (i + 1)).val());
+                    ftotn_array[i] = [flayiel[i], flaltb[i], flaflb[i]];
+                    flamin[i] = Math.min(...ftotn_array[i]);
+
+                    $('#lg' + (i + 1)).val(flamin[i]);
+
+                    fmall[i] = 0.90 * flamin[i];
+                    flamu[i] = $('#BM').val();
+
+                    $('#Finmall' + (i + 1)).val(fmall[i]);
+                    $('#Finmu' + (i + 1)).val(flamu[i]);
+                    if (fmall[i] > flamu[i]) {
+                      $('#FinRes' + (i + 1)).val('SAFE').removeClass('bg-danger text-light').addClass('bg-success text-light');
+                    } else {
+                      $('#FinRes' + (i + 1)).val('NOT-SAFE').removeClass('bg-success text-light').addClass('bg-danger text-light');
+                    }
+                  } else if (flalp[i] < flalb[i] && flalb[i] > flalr[i]) {
+                    console.log('condition 3');
+
+                    flbbb[i] = $('#lb' + (i + 1)).val();
+                    fjccc[i] = result[i]["j"];
+                    fsxxx[i] = $('#BSx').val();
+                    flhoo[i] = result[i]["ho"];
+                    frtss[i] = result[i]["rts"];
+
+                    faas[i] = 1 * ((3.141592654 ** 2) * 200000) / ((flbbb[i] / frtss[i]) ** 2);
+                    fbbs[i] = Math.sqrt(1 + 0.078 * (jccc * (10 ** 3) * (1) / ((fsxxx[i] * (10 ** 3)) * flhoo[i]) * ((flbbb[i] / frtss[i]) ** 2)));
+                    ftotalsss[i] = faas[i] * fbbs[i];
+
+                    $('#ltb' + (i + 1)).val(ftotalsss[i]);
+
+                    flayiel[i] = parseFloat($('#AtYielding' + (i + 1)).val());
+                    flaflb[i] = parseFloat($('#mn' + (i + 1)).val());
+                    flaltb[i] = parseFloat($('#ltb' + (i + 1)).val());
+                    ftotn_array[i] = [flayiel[i], flaltb[i], flaflb[i]];
+                    flamin[i] = Math.min(...ftotn_array[i]);
+
+                    $('#lg' + (i + 1)).val(flamin[i]);
+
+                    fmall[i] = 0.90 * flamin[i];
+                    flamu[i] = $('#BM').val();
+
+                    $('#Finmall' + (i + 1)).val(fmall[i]);
+                    $('#Finmu' + (i + 1)).val(flamu[i]);
+                    if (fmall[i] > flamu[i]) {
+                      $('#FinRes' + (i + 1)).val('SAFE').removeClass('bg-danger text-light').addClass('bg-success text-light');
+                    } else {
+                      $('#FinRes' + (i + 1)).val('NOT-SAFE').removeClass('bg-success text-light').addClass('bg-danger text-light');
+                    }
+                  }
                 }
               }
 
@@ -2612,8 +2839,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               $('#AtYielding4').val(mAtYielding.toFixed(3));
 
 
-              fmn[i] = fmp1[i] - (fmp1[i] - (0.7 * (ffysx[i]))) * ((fa1[i] - fap1[i]) / (far1[i] - fap1[i]));
-              $('#mn' + (i + 1)).val(fmn[i].toFixed(3));
+
 
               let fa1 = $('#AtFlange4').val();
               let fap1 = $('#LambFlangeP5').val();
@@ -2623,8 +2849,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               let fbfy1 = $('#BFy').val();
               let ffysx = (fbfy1 * (fbsx1 * 1000)) / 1000000;
 
-              fmn[i] = fmp1[i] - (fmp1[i] - (0.7 * (ffysx[i]))) * ((fa1[i] - fap1[i]) / (far1[i] - fap1[i]));
-              $('#mn' + (i + 1)).val(fmn[i].toFixed(3));
+
 
               let valflange = $('#AtFlangeAns4').val();
 
@@ -2790,6 +3015,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 
                 } else if (lalp < lalb && lalb < lalr) {
                   console.log('condition 2');
+                  let mn4 = fmp1 - (fmp1 - (0.7 * (ffysx))) * ((fa1 - fap1) / (far1 - fap1));
+                  $('#mn4').val(mn4.toFixed(3));
+
                   let ctmp = $('#AtYielding4').val();
                   let ctfy = $('#BFy').val();
                   let ctsx = $('#BSx').val();
