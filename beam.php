@@ -238,7 +238,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     <label for="">Fy:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="BFy">
-                      <span class="input-group-text">Kn/m</span>
+                      <span class="input-group-text">MPa</span>
                     </div>
                   </div>
                 </div>
@@ -1833,6 +1833,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                       <button type="button" class="btn form-control" id="suggestions-tab">Suggestions</button>
                       <button type="button" class="btn form-control" id="manual-tab">Manually Selection</button>
                     </div>
+                    <input type="hidden" id="smt" value="1">
                   </div>
                 </div>
                 <div class="row" id="EDI-Column">
@@ -1855,7 +1856,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     </select>
                   </div>
                 </div>
-                <div class="row" id="sugg-Column">
+                <!-- <div class="row" id="sugg-Column">
                   <div class="col-12 form-group">
                     <label for="">EDI Suggestions</label>
                     <div class="input-group">
@@ -1865,7 +1866,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                       <span class="input-group-text">Kn/m</span>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="row">
                   <div class="col-12 form-group">
                     <button type="button" class="btn btn-danger form-control mt-2" data-bs-dismiss="modal" aria-label="Close">Close</button>
@@ -1972,7 +1973,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               let UL = $('#unLength').val();
 
               for (x = 1; x < 5; x++) {
-                $('#lb' + x).val(UL);
+                $('#lb' + x).val(UL * 1000);
               }
 
               BSx();
@@ -1993,7 +1994,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               let ULs = $('#BLength').val();
 
               for (x = 1; x < 5; x++) {
-                $('#lb' + x).val(ULs);
+                $('#lb' + x).val(ULs * 1000);
               }
 
               BSx();
@@ -2079,6 +2080,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
             $('#EDI-Column').hide();
             $('#sugg-Column').show();
             $('#EDISelect option[value="0"]').prop('selected', true);
+            $('#smt').val(1);
           } else {
             $('#suggestions-tab').removeClass('btn-info').addClass('btn-secondary');
             $('#manual-tab').removeClass('btn-secondary').addClass('btn-info');
@@ -2090,6 +2092,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
             $('#EDI-Column').show();
             $('#sugg-Column').hide();
             $('#EDISelect option[value="0"]').prop('selected', true);
+            $('#smt').val(2);
           }
         });
 
@@ -2132,6 +2135,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
           BSx();
           let edid = $('#EDISelect').val();
           getmanualtrial(edid);
+
+
+
         });
 
         function BSx() {
@@ -2350,6 +2356,8 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               let ffbfy1 = [];
               let fffysx = [];
 
+              let flaflb = [];
+
               let fvalflange = [];
               let flpp = [];
               let fvry = [];
@@ -2400,6 +2408,8 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               let faas = [];
               let fbbs = [];
               let ftotalsss = [];
+
+              let fmn4 = [];
 
 
               for (var i = 0; i < 3; i++) {
@@ -2465,18 +2475,20 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 ffa1[i] = $('#AtFlange' + (i + 1)).val();
                 ffap1[i] = $('#LambFlangeP' + (i + 1)).val();
                 ffar1[i] = $('#LambFlangeR' + (i + 1)).val();
-                ffmp1[i] = $('#AtYielding4' + (i + 1)).val();
+                ffmp1[i] = $('#AtYielding' + (i + 1)).val();
                 ffbsx1[i] = $('#BSx').val();
                 ffbfy1[i] = $('#BFy').val();
-                fffysx[i] = (ffbfy1 * (ffbsx1 * 1000)) / 1000000;
+                fffysx[i] = (ffbfy1[i] * (ffbsx1[i] * 1000)) / 1000000;
                 fvry[i] = result[i]["ry"];
 
+                // flb
+                fmn4[i] = ffmp1[i] - (ffmp1[i] - (0.7 * (fffysx[i]))) * ((ffa1[i] - ffap1[i]) / (ffar1[i] - ffap1[i]));
+                $('#mn' + (i + 1)).val(fmn4[i].toFixed(3));
 
                 fvalflange[i] = $('#AtFlangeAns' + (i + 1)).val();
 
                 if (fvalflange[i] == 'COMPACT') {
                   console.log('compact');
-                  $('#mn' + (i + 1)).val(0);
                   //lp
                   flpp[i] = (1.76 * (fvry[i])) * Math.sqrt(200000 / ffbfy1[i]);
                   $('#lp' + (i + 1)).val(flpp[i].toFixed(3));
@@ -2487,13 +2499,20 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   flsx[i] = $('#BSx').val();
                   flho[i] = result[i]["ho"];
 
-                  flla[i] = (1.95 * flrts[i]);
-                  fllb[i] = (200000) / (0.7 * flfy[i]);
-                  fllc[i] = Math.sqrt(((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]));
-                  flld[i] = Math.sqrt(1 + (Math.sqrt(1 + (6.76 * (((0.7 * flfy[i]) / 200000) * (((flsx[i] * 1000) * flho[i]) / ((fljc[i] * 1000) * 1)) ** 2)))));
+                  // flla[i] = (1.95 * flrts[i]);
+                  // fllb[i] = (200000) / (0.7 * flfy[i]);
+                  // fllc[i] = Math.sqrt(((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]));
+                  // flld[i] = Math.sqrt(1 + (Math.sqrt(1 + (6.76 * (((0.7 * flfy[i]) / 200000) * (((flsx[i] * 1000) * flho[i]) / ((fljc[i] * 1000) * 1)) ** 2)))));
 
-                  ftotal[i] = flla[i] * fllb[i] * fllc[i] * flld[i];
-                  $('#lr' + (i + 1)).val(ftotal[i].toFixed(3));
+                  // ftotal[i] = flla[i] * fllb[i] * fllc[i] * flld[i];
+                  // $('#lr' + (i + 1)).val(ftotal[i].toFixed(3));
+
+                  flla[i] = 1.95 * flrts[i];
+                  fllb[i] = 200000 / (0.7 * flfy[i]);
+                  fllc[i] = ((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]);
+                  flld[i] = flla[i] * fllb[i] * Math.sqrt(fllc[i]) * Math.sqrt(1 + Math.sqrt(1 + 6.76 * (1 / ((fllb[i] * fllc[i]) ** 2))))
+
+                  $('#lr' + (i + 1)).val(flld[i].toFixed(3)/1000000);
 
                   flalp[i] = parseFloat($('#lp' + (i + 1)).val());
                   flalb[i] = parseFloat($('#lb' + (i + 1)).val());
@@ -2563,7 +2582,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     frtss[i] = result[i]["rts"];
 
                     faas[i] = 1 * ((3.141592654 ** 2) * 200000) / ((flbbb[i] / frtss[i]) ** 2);
-                    fbbs[i] = Math.sqrt(1 + 0.078 * (jccc * (10 ** 3) * (1) / ((fsxxx[i] * (10 ** 3)) * flhoo[i]) * ((flbbb[i] / frtss[i]) ** 2)));
+                    fbbs[i] = Math.sqrt(1 + 0.078 * (fjccc[i] * (10 ** 3) * (1) / ((fsxxx[i] * (10 ** 3)) * flhoo[i]) * ((flbbb[i] / frtss[i]) ** 2)));
                     ftotalsss[i] = faas[i] * fbbs[i];
 
                     $('#ltb' + (i + 1)).val(ftotalsss[i]);
@@ -2571,8 +2590,8 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     flayiel[i] = parseFloat($('#AtYielding' + (i + 1)).val());
                     flaltb[i] = parseFloat($('#ltb' + (i + 1)).val());
 
-                    ftotn_array[i] = [flayiel[i], flaltb[i]];
-                    flamin[i] = Math.min(...ftotn_array[i]);
+                    // ftotn_array[i] = [flayiel[i], flaltb[i]];
+                    flamin[i] = Math.min(flayiel[i], flaltb[i]);
 
                     $('#lg' + (i + 1)).val(flamin[i]);
 
@@ -2590,6 +2609,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 } else if (fvalflange[i] == 'NON-COMPACT') {
                   console.log('non-compact');
 
+
                   //lp
                   flpp[i] = (1.76 * (fvry[i])) * Math.sqrt(200000 / ffbfy1[i]);
                   $('#lp' + (i + 1)).val(flpp[i].toFixed(3));
@@ -2600,13 +2620,20 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   flsx[i] = $('#BSx').val();
                   flho[i] = result[i]["ho"];
 
-                  flla[i] = (1.95 * flrts[i]);
-                  fllb[i] = (200000) / (0.7 * flfy[i]);
-                  fllc[i] = Math.sqrt(((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]));
-                  flld[i] = Math.sqrt(1 + (Math.sqrt(1 + (6.76 * (((0.7 * flfy[i]) / 200000) * (((flsx[i] * 1000) * flho[i]) / ((fljc[i] * 1000) * 1)) ** 2)))));
+                  // flla[i] = (1.95 * flrts[i]);
+                  // fllb[i] = (200000) / (0.7 * flfy[i]);
+                  // fllc[i] = Math.sqrt(((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]));
+                  // flld[i] = Math.sqrt(1 + (Math.sqrt(1 + (6.76 * (((0.7 * flfy[i]) / 200000) * (((flsx[i] * 1000) * flho[i]) / ((fljc[i] * 1000) * 1)) ** 2)))));
 
-                  ftotal[i] = flla[i] * fllb[i] * fllc[i] * flld[i];
-                  $('#lr' + (i + 1)).val(ftotal[i].toFixed(3));
+                  // ftotal[i] = flla[i] * fllb[i] * fllc[i] * flld[i];
+                  // $('#lr' + (i + 1)).val(ftotal[i].toFixed(3));
+
+                  flla[i] = 1.95 * flrts[i];
+                  fllb[i] = 200000 / (0.7 * flfy[i]);
+                  fllc[i] = ((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]);
+                  flld[i] = flla[i] * fllb[i] * Math.sqrt(fllc[i]) * Math.sqrt(1 + Math.sqrt(1 + 6.76 * (1 / ((fllb[i] * fllc[i]) ** 2))))
+
+                  $('#lr' + (i + 1)).val(flld[i].toFixed(3)/1000000);
 
                   flalp[i] = parseFloat($('#lp' + (i + 1)).val());
                   flalb[i] = parseFloat($('#lb' + (i + 1)).val());
@@ -2615,7 +2642,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   if (flalp[i] > flalb[i]) {
                     console.log('condition 1');
 
-                    flayiel[i] = parseFloat($('#AtYielding4').val());
+                    flayiel[i] = parseFloat($('#AtYielding' + (i + 1)).val());
                     // let laflb = parseFloat($('#mn4').val());
                     // let laltb = parseFloat($('#ltb4').val());
 
@@ -2637,6 +2664,10 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 
                   } else if (flalp[i] < flalb[i] && flalb[i] < flalr[i]) {
                     console.log('condition 2');
+
+                    // heres an error
+                    console.log('ap:', ffap1[i], 'a:', ffa1[i], 'ar:', ffar1[i], 'mn:', fmn4[i]);
+                    // yielding
                     fctmp[i] = $('#AtYielding' + (i + 1)).val();
                     fctfy[i] = $('#BFy').val();
                     fctsx[i] = $('#BSx').val();
@@ -2648,7 +2679,6 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     fconditionss[i] = 1 * (fctmp[i] - (fctmp[i] - (0.7 * (fctfy[i] * (fctsx[i] * 1000)) * (fctlb[i] - fctlp[i]) / (fctlr[i] - fctlp[i]))));
 
                     $('#ltb' + (i + 1)).val(fconditionss[i]);
-
 
                     flayiel[i] = parseFloat($('#AtYielding' + (i + 1)).val());
                     flaflb[i] = parseFloat($('#mn' + (i + 1)).val());
@@ -2670,6 +2700,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     }
                   } else if (flalp[i] < flalb[i] && flalb[i] > flalr[i]) {
                     console.log('condition 3');
+                    //flb 
+                    // fmn4[i] = ffmp1[i] - (ffmp1[i] - (0.7 * (fffysx[i]))) * ((ffa1[i] - ffap1[i]) / (ffar1[i] - ffap1[i]));
+                    // $('#mn' + (i + 1)).val(fmn4[i].toFixed(3));
 
                     flbbb[i] = $('#lb' + (i + 1)).val();
                     fjccc[i] = result[i]["j"];
@@ -2678,7 +2711,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     frtss[i] = result[i]["rts"];
 
                     faas[i] = 1 * ((3.141592654 ** 2) * 200000) / ((flbbb[i] / frtss[i]) ** 2);
-                    fbbs[i] = Math.sqrt(1 + 0.078 * (jccc * (10 ** 3) * (1) / ((fsxxx[i] * (10 ** 3)) * flhoo[i]) * ((flbbb[i] / frtss[i]) ** 2)));
+                    fbbs[i] = Math.sqrt(1 + 0.078 * (fjccc[i] * (10 ** 3) * (1) / ((fsxxx[i] * (10 ** 3)) * flhoo[i]) * ((flbbb[i] / frtss[i]) ** 2)));
                     ftotalsss[i] = faas[i] * fbbs[i];
 
                     $('#ltb' + (i + 1)).val(ftotalsss[i]);
@@ -2705,30 +2738,49 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 }
               }
 
+
+
+
               let bdi1 = $('#BEdi1').val();
               let bdi2 = $('#BEdi2').val();
               let bdi3 = $('#BEdi3').val();
+              let bdi4 = $('#EDISelect').val();
 
               let tr1 = $('#FinRes1').val();
               let tr2 = $('#FinRes2').val();
               let tr3 = $('#FinRes3').val();
+              let finalv = $('#FinRes4').val();
 
-              if (tr1 == 'SAFE') {
-                // here
-                $('#FinalApp').val(bdi1);
-              } else {
+              // if 1 suggestions; if 2 manual
+              let smat = $('#smt').val();
 
-                if (tr2 == 'SAFE') {
+
+              if (smat == 1) {
+                console.log(smat);
+                if (tr1 == 'SAFE') {
                   // here
-                  $('#FinalApp').val(bdi2);
+                  $('#FinalApp').val(bdi1);
                 } else {
 
-                  if (tr3 == 'SAFE') {
+                  if (tr2 == 'SAFE') {
                     // here
                     $('#FinalApp').val(bdi2);
                   } else {
-                    $('#FinalApp').val('Not in range of our suggestions!');
+
+                    if (tr3 == 'SAFE') {
+                      // here
+                      $('#FinalApp').val(bdi2);
+                    } else {
+                      $('#FinalApp').val('Not in range of our suggestions!');
+                    }
                   }
+                }
+              } else {
+                console.log(smat);
+                if (finalv == 'SAFE') {
+                  $('#FinalApp').val(bdi1);
+                } else {
+                  $('#FinalApp').val('Select another EDI!');
                 }
               }
             }
@@ -2858,13 +2910,12 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 let lsx = $('#BSx').val();
                 let lho = result[0]["ho"];
 
-                let lla = (1.95 * lrts);
-                let llb = (200000) / (0.7 * lfy);
-                let llc = Math.sqrt(((ljc * (10 ** 3)) * 1) / ((lsx * (10 ** 3)) * lho));
-                let lld = Math.sqrt(1 + (Math.sqrt(1 + (6.76 * (((0.7 * lfy) / 200000) * (((lsx * 1000) * lho) / ((ljc * 1000) * 1)) ** 2)))));
+                let lla = 1.95 * lrts;
+                let llb = 200000 / (0.7 * lfy);
+                let llc = ((ljc * (10 ** 3)) * 1) / ((lsx * (10 ** 3)) * lho);
+                let lld = lla * llb * Math.sqrt(llc) * Math.sqrt(1 + Math.sqrt(1 + 6.76 * (1 / ((llb * llc) ** 2))))
 
-                let total = lla * llb * llc * lld;
-                $('#lr4').val(total.toFixed(3));
+                $('#lr4').val(lld.toFixed(3));
 
                 let lalp = parseFloat($('#lp4').val());
                 let lalb = parseFloat($('#lb4').val());
@@ -2905,7 +2956,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 
                   let conditionss = 1 * (ctmp - (ctmp - (0.7 * (ctfy * (ctsx * 1000)) * (ctlb - ctlp) / (ctlr - ctlp))));
 
-                  $('#ltb4').val(conditionss);
+                  $('#ltb4').val(conditionss / 1000000);
 
                   let layiel = parseFloat($('#AtYielding4').val());
                   // let laflb = parseFloat($('#mn4').val());
@@ -2970,13 +3021,13 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 let lsx = $('#BSx').val();
                 let lho = result[0]["ho"];
 
-                let lla = (1.95 * lrts);
-                let llb = (200000) / (0.7 * lfy);
-                let llc = Math.sqrt(((ljc * (10 ** 3)) * 1) / ((lsx * (10 ** 3)) * lho));
-                let lld = Math.sqrt(1 + (Math.sqrt(1 + (6.76 * (((0.7 * lfy) / 200000) * (((lsx * 1000) * lho) / ((ljc * 1000) * 1)) ** 2)))));
 
-                let total = lla * llb * llc * lld;
-                $('#lr4').val(total.toFixed(3));
+                let lla = 1.95 * lrts;
+                let llb = 200000 / (0.7 * lfy);
+                let llc = ((ljc * (10 ** 3)) * 1) / ((lsx * (10 ** 3)) * lho);
+                let lld = lla * llb * Math.sqrt(llc) * Math.sqrt(1 + Math.sqrt(1 + 6.76 * (1 / ((llb * llc) ** 2))))
+
+                $('#lr4').val(lld.toFixed(3));
 
                 let lalp = parseFloat($('#lp4').val());
                 let lalb = parseFloat($('#lb4').val());
@@ -3007,6 +3058,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 
                 } else if (lalp < lalb && lalb < lalr) {
                   console.log('condition 2');
+
                   let mn4 = fmp1 - (fmp1 - (0.7 * (ffysx))) * ((fa1 - fap1) / (far1 - fap1));
                   $('#mn4').val(mn4.toFixed(3));
 
@@ -3043,6 +3095,9 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 } else if (lalp < lalb && lalb > lalr) {
                   console.log('condition 3');
 
+                  let mn4 = fmp1 - (fmp1 - (0.7 * (ffysx))) * ((fa1 - fap1) / (far1 - fap1));
+                  $('#mn4').val(mn4.toFixed(3));
+
                   let lbbb = $('#lb4').val();
                   let jccc = result[0]["j"];
                   let sxxx = $('#BSx').val();
@@ -3074,6 +3129,8 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   }
                 }
               }
+
+
             }
           });
         };

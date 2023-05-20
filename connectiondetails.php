@@ -189,7 +189,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     <label for="">Size of Weld:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="sizeOfWeld">
-                      <span class="input-group-text">Kn/m</span>
+                      <span class="input-group-text">mm</span>
                     </div>
                   </div>
                 </div>
@@ -198,7 +198,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     <label for="">Length of Welded Area:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="lengthOfWeldedArea">
-                      <span class="input-group-text">Kn/m</span>
+                      <span class="input-group-text">mm</span>
                     </div>
                   </div>
                 </div>

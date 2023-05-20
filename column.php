@@ -229,7 +229,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                     <label for="">Fy:</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="CFy">
-                      <span class="input-group-text">Kn/m</span>
+                      <span class="input-group-text">MPa</span>
                     </div>
                   </div>
                 </div>
