@@ -2,39 +2,31 @@
 session_start();
 require 'db/connection.php';
 
+
+
 if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
     if (isset($_POST['AJAXLocator'])) {
         $locator = $_POST['AJAXLocator'];
     } else {
         $locator = $_GET['AJAXLocator'];
     }
-    if ($locator == "login") {
+    if ($locator == "register") {
+
+        $fullname = $_POST['fullname'];
         $email = $_POST['email'];
         $password = md5($_POST['password']);
 
-        $sql = "SELECT * FROM users WHERE email= '" . $email . "' AND password= '" . $password . "'";
-        $query = mysqli_query($conn, $sql);
+        $sql = "INSERT INTO users (fulname, email, password) VALUES ('" . $fullname . "','" . $email . "','" . $password . "')";
 
-        if ($query) {
-            $rowCount = mysqli_num_rows($query);
-            if ($rowCount > 0) {
-                while ($row = mysqli_fetch_assoc($query)) {
-                    $_SESSION['fullname'] = $row['fulname'];
-                    $_SESSION['email'] = $row['email'];
-                }
-                echo json_encode(1);
-                exit;
-            } else {
-                echo json_encode(0);
-                exit;
-            }
-        } else {
-            // Error executing the query
-            echo "Error executing the query: " . mysqli_error($conn);
-        }
+        $result = $conn->query($sql) or die("Error in Selecting " . mysqli_error($conn));
+
+        echo json_encode(1);
+        exit;
+        
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -53,7 +45,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 <style>
     @media screen and (min-width:767px) {
         .formx {
-            margin: 5% 7%;
+            margin: 2% 7%;
         }
 
         .inner-formx {
@@ -63,14 +55,14 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 
     @media screen and (max-width:765px) {
         .formx {
-            margin: 35% 8%;
+            margin: 22% 8%;
             width: 350px;
         }
 
         .inner-formx {
             padding: 50px 20px;
         }
-
+        
         .floating {
             display: none;
         }
@@ -115,39 +107,46 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                         <div class="col text-center mb-4">
                             <img src="assets/images/ecs.png" alt="" style="width:100px;">
                             <h4 class="fw-bold">EASY CE STEEL</h4>
-                            <h5 class="fw-normal text-uppercase">Login</h5>
+                            <h5 class="fw-normal text-uppercase">Register</h5>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example1">Full name</label>
+                                <input type="text" id="fullname" class="form-control" />
+                            </div>
                             <!-- Email input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form2Example1">Email address</label>
-                                <input type="email" class="form-control" id="email" />
+                                <input type="email" id="email" class="form-control" />
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form2Example2">Password</label>
-                                <input type="password" class="form-control" id="password" />
+                                <input type="password" id="password" class="form-control" />
                             </div>
 
                             <div class="row">
                                 <div class="col form-group">
                                     <!-- Submit button -->
-                                    <button type="button" class="btn btn-info btn-block mb-4 form-control" id="login">Login</button>
+                                    <button type="button" id="register" class="btn btn-info btn-block mb-4 form-control">Register</button>
                                 </div>
                             </div>
 
                             <!-- Register buttons -->
                             <div class="text-center">
-                                <p>Not a member? <a href="register.php">Register</a></p>
+                                <p>Have an account? <a href="index.php">Login</a></p>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 d-xs-none">
+            <div class="col-lg-6">
                 <div class="container">
                     <div class="row">
                         <div class="col text-center">
@@ -176,41 +175,45 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
-        $('#login').on('click', function() {
+        $('#register').on('click', function() {
+            let fullname = $('#fullname').val();
             let email = $('#email').val();
             let password = $('#password').val();
 
-            $.ajax({
-                url: "index.php",
-                type: "POST",
-                data: {
-                    email: email,
-                    password: password,
-                    AJAXLocator: "login",
-                },
-                dataType: 'json',
-                success: function(result) {
-                    if (result > 0) {
-                        swal({
-                            title: "Success!",
-                            text: "You're successfully logged in!",
-                            icon: "success"
-                        });
-                        $('.swal-button.swal-button--confirm').css('display','none');
-                        var url = 'main.php';
-                        setTimeout(function() {
-                            // Code to open the new window
-                            window.location.href = url;
-                        }, 700);
-                    } else {
-                        swal({
-                            title: "Failed!",
-                            text: "Incorrect email or password!",
-                            icon: "error",
-                        });
+            if (email.indexOf('student.fatima.edu.ph') > -1) {
+                $.ajax({
+                    url: "register.php",
+                    type: "POST",
+                    data: {
+                        fullname: fullname,
+                        email: email,
+                        password: password,
+                        AJAXLocator: "register",
+                    },
+                    dataType: 'json',
+                    success: function(result) {
+                        console.log(result);
+
+                        if (result == 1) {
+                            swal({
+                                title: "Success!",
+                                text: "You're successfully registered!",
+                                icon: "success",
+                            });
+                            $('#fullname').val('');
+                            $('#email').val('');
+                            $('#password').val('');
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                swal({
+                    title: "Failed!",
+                    text: "Please use your fatima email account!",
+                    icon: "error",
+                });
+            }
+
         });
     </script>
 

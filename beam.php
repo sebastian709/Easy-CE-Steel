@@ -2,7 +2,8 @@
 session_start();
 require 'db/connection.php';
 
-
+$email = isset($_SESSION['email']);
+$fullname = $_SESSION['fullname'];
 
 if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
   if (isset($_POST['AJAXLocator'])) {
@@ -67,6 +68,8 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
     top: 50%;
     right: 5px;
   }
+
+ 
 </style>
 
 <body>
@@ -96,6 +99,14 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
               <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
             </li>
           </ul>
+          <ul class="navbar-nav float-end">
+            <li class="nav-item px-2 pt-2">
+              <h2 class="text-light fw-normal"><?php echo $fullname; ?></h2>
+            </li>
+            <li class="nav-item px-2 pt-2">
+              <img src="assets/images/icon/logout.png" alt="" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="cursor:pointer;">
+            </li>
+          </ul>
         </div>
       </nav>
     </header>
@@ -105,7 +116,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
         <nav class="sidebar-nav">
           <ul id="sidebarnav" class="pt-4">
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="main.php" aria-expanded="false">
                 <img src="assets/images/icon/home.png" alt="" class="px-2"><span class="hide-menu">Home</span>
               </a>
             </li>
@@ -122,6 +133,11 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="connectiondetails.php" aria-expanded="false">
                 <img src="assets/images/icon/deck.png" alt="" class="px-2"><span class="hide-menu">Connection Details</span>
+              </a>
+            </li>
+            <li class="sidebar-item d-block d-lg-none">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link nfm" href="#" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                <img src="assets/images/icon/logout16.png" alt="" class="px-2"><span class="hide-menu">Logout</span>
               </a>
             </li>
           </ul>
@@ -1881,7 +1897,28 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
           </div>
         </div>
         <input type="hidden" id="ind">
+        <input type="hidden" value="<?php echo strlen($email) > 0 ? 1 : 0; ?>" id="session">
       </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure to logout?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" id="logout">Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <script src="assets/libs/jquery/dist/jquery.min.js"></script>
       <script src="assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
       <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
@@ -1897,14 +1934,29 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
       <script src="assets/libs/flot/jquery.flot.crosshair.js"></script>
       <script src="assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
       <script src="dist/js/pages/chart/chart-page-init.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
       <script>
+        $('#logout').on('click', function() {
+          swal({
+            title: "Success!",
+            text: "You're successfully logout!",
+            icon: "success",
+          });
+          $('.swal-button.swal-button--confirm').css('display', 'none');
+          var url = 'logout.php';
+          setTimeout(function() {
+            window.location.href = url;
+          }, 700);
+        }).css('cursor', 'pointer');
         $(document).ready(function() {
+          var session = $('#session').val();
+          if (session == 0) {
+            var url = 'index.php';
+            window.location.href = url;
+          }
           $('body').find('img[src$="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"]').parent().closest('a').closest('div').remove();
-          // Make the DIV element draggable:
-
-
         });
 
         //Default value
@@ -2512,7 +2564,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   fllc[i] = ((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]);
                   flld[i] = flla[i] * fllb[i] * Math.sqrt(fllc[i]) * Math.sqrt(1 + Math.sqrt(1 + 6.76 * (1 / ((fllb[i] * fllc[i]) ** 2))))
 
-                  $('#lr' + (i + 1)).val(flld[i].toFixed(3)/1000000);
+                  $('#lr' + (i + 1)).val(flld[i].toFixed(3) / 1000000);
 
                   flalp[i] = parseFloat($('#lp' + (i + 1)).val());
                   flalb[i] = parseFloat($('#lb' + (i + 1)).val());
@@ -2633,7 +2685,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                   fllc[i] = ((fljc[i] * (10 ** 3)) * 1) / ((flsx[i] * (10 ** 3)) * flho[i]);
                   flld[i] = flla[i] * fllb[i] * Math.sqrt(fllc[i]) * Math.sqrt(1 + Math.sqrt(1 + 6.76 * (1 / ((fllb[i] * fllc[i]) ** 2))))
 
-                  $('#lr' + (i + 1)).val(flld[i].toFixed(3)/1000000);
+                  $('#lr' + (i + 1)).val(flld[i].toFixed(3) / 1000000);
 
                   flalp[i] = parseFloat($('#lp' + (i + 1)).val());
                   flalb[i] = parseFloat($('#lb' + (i + 1)).val());
