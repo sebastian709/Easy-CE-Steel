@@ -22,7 +22,6 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
 
         echo json_encode(1);
         exit;
-        
     }
 }
 ?>
@@ -62,7 +61,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
         .inner-formx {
             padding: 50px 20px;
         }
-        
+
         .floating {
             display: none;
         }
@@ -105,7 +104,7 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                 <div class="container inner-formx">
                     <div class="row">
                         <div class="col text-center mb-4">
-                            <img src="assets/images/ecs.png" alt="" style="width:100px;">
+                            <img src="assets/images/ECS.png" alt="" style="width:100px;">
                             <h4 class="fw-bold">EASY CE STEEL</h4>
                             <h5 class="fw-normal text-uppercase">Register</h5>
                         </div>
@@ -175,6 +174,10 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            $('body').find('img[src$="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"]').parent().closest('a').closest('div').remove();
+        });
+
         $('#register').on('click', function() {
             let fullname = $('#fullname').val();
             let email = $('#email').val();
@@ -200,6 +203,12 @@ if (isset($_POST['AJAXLocator']) || isset($_GET['AJAXLocator'])) {
                                 text: "You're successfully registered!",
                                 icon: "success",
                             });
+                            $('.swal-button.swal-button--confirm').css('display', 'none');
+                            var url = 'main.php';
+                            setTimeout(function() {
+                                // Code to open the new window
+                                window.location.href = url;
+                            }, 700);
                             $('#fullname').val('');
                             $('#email').val('');
                             $('#password').val('');
